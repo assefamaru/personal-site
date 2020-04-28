@@ -14,7 +14,7 @@
       3000))
 
 (serve/servlet start
-               #:command-line? #t ;; set this to #t on deploy
+               #:command-line? #t
                #:listen-ip #f
                #:port port
                #:servlet-path "/")
