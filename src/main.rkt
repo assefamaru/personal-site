@@ -12,11 +12,11 @@
       3000))
 
 ; Set up and start server instance.
-(serve/servlet home
+(serve/servlet start
                ; use serve/servlet in a startup script
                ; instead of opening a browser
                ; - set to #t on deploy
-               #:command-line? #t
+               #:command-line? #f
                ; set to #f and accept connections to
                ; all listening machine's addresses
                #:listen-ip #f
@@ -30,5 +30,4 @@
                ; ones served by #:server-root-path "htdocs"
                #:extra-files-paths
                (list
-                (build-path "./static/css")
-                (build-path "./static/js")))
+                (build-path "../static")))

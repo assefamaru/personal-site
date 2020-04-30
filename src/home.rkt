@@ -1,7 +1,7 @@
 #lang racket
 
 (require web-server/servlet)
-(provide/contract (home (request? . -> . response?)))
+(provide/contract (start (request? . -> . response?)))
 
 (define (head title)
   `(head
@@ -32,7 +32,7 @@
             gtag('js', new Date());
             gtag('config', 'UA-106749390-2');"))
 
-(define (home req)
+(define (start req)
   (response/xexpr
    `(html ,(head "Alexander Maru")
           (body
