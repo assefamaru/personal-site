@@ -17,7 +17,7 @@
            (content "Student, programmer, aspiring mathematician.")))
     (link ((rel "stylesheet")
            (type "text/css")
-           (href "https://s3.ca-central-1.amazonaws.com/assets.alexandermaru.com/styles.css")))
+           (href "/style.css/dark")))
     (link ((rel "stylesheet")
            (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900")))
     (script ((type "text/javascript")

@@ -34,4 +34,5 @@
                ; ones served by #:server-root-path "htdocs"
                #:extra-files-paths
                (list (build-path "./static"))
+               ; capture all top level requests
                #:servlet-regexp #rx"")

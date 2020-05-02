@@ -3,10 +3,10 @@
 (require "header.rkt"
          web-server/servlet)
 
-(provide/contract (render-blog (request? . -> . response?))
-                  (view-post (request? string? . -> . response?)))
+(provide/contract (blog-path (request? . -> . response?))
+                  (post-path (request? string? . -> . response?)))
 
-(define (render-blog request)
+(define (blog-path request)
   (response/xexpr
    `(html ,(meta "Alexander Maru")
           (body
@@ -20,7 +20,7 @@
            (a ((href "/blog/3"))
               "Third blog")))))
 
-(define (view-post request name)
+(define (post-path request name)
   (response/xexpr
    `(html ,(meta "Alexander Maru")
           (body

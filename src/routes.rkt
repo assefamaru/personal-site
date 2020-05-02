@@ -1,7 +1,10 @@
 #lang racket
 
-(require "home.rkt"
+(require "theme.rkt"
+         "home.rkt"
          "blog.rkt"
+         "error.rkt"
+         web-server/servlet
          web-server/dispatch)
 
 (provide route)
@@ -10,7 +13,8 @@
 ;; for site routes.
 (define-values (route a-url)
   (dispatch-rules
-   [("") render-home]
-   [("blog") render-blog]
-   [("blog" (string-arg)) view-post]
-   [else render-home]))
+   [("") root-path]
+   [("blog") blog-path]
+   [("blog" (string-arg)) post-path]
+   [("style.css" (string-arg)) style-path]
+   [else error-path]))

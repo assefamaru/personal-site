@@ -3,9 +3,9 @@
 (require "header.rkt"
          web-server/servlet)
 
-(provide/contract (render-home (request? . -> . response?)))
+(provide/contract (root-path (request? . -> . response?)))
 
-(define (render-home request)
+(define (root-path request)
   (response/xexpr
    `(html ,(meta "Alexander Maru")
           (body
