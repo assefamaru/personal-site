@@ -1,9 +1,8 @@
 #lang racket
 
-(require "theme.rkt"
-         "home.rkt"
+(require "home.rkt"
          "blog.rkt"
-         "error.rkt"
+         "errors.rkt"
          web-server/servlet
          web-server/dispatch)
 
@@ -14,7 +13,6 @@
 (define-values (route a-url)
   (dispatch-rules
    [("") root-path]
-   [("blog") blog-path]
-   [("blog" (string-arg)) post-path]
-   [("style.css" (string-arg)) style-path]
-   [else error-path]))
+   [("blog") list-posts]
+   [("blog" (string-arg)) review-post]
+   [else render-error]))

@@ -3,10 +3,6 @@
 (require "routes.rkt"
          web-server/servlet-env)
 
-;; start : request -> response
-(define (start request)
-  (route request))
-
 ;; If port is set by environment,
 ;; use that value. Otherwise, use
 ;; port=3000 as default.
@@ -14,6 +10,10 @@
   (if (getenv "PORT")
       (string->number (getenv "PORT"))
       3000))
+
+;; start : request -> response
+(define (start request)
+  (route request))
 
 ;; Set up and start server instance.
 (serve/servlet start
@@ -32,7 +32,6 @@
                #:stateless? #t
                ; serve additional files aside from the
                ; ones served by #:server-root-path "htdocs"
-               #:extra-files-paths
-               (list (build-path "./static"))
+               #:extra-files-paths '()
                ; capture all top level requests
                #:servlet-regexp #rx"")

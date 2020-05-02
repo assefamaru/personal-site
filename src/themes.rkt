@@ -3,12 +3,7 @@
 (require css-expr
          web-server/servlet)
 
-(provide style-path)
-
-(define (style-path request theme)
-  (if (equal? theme "light")
-      (response/xexpr light-theme)
-      (response/xexpr dark-theme)))
+(provide dark-theme light-theme render-styles)
 
 (define dark-theme
   (css-expr->css
@@ -33,3 +28,8 @@
      #:font-family |"Source Sans Pro"|]
     [a #:color |blue|]
     [a:hover #:color |red|])))
+
+(define render-styles
+  (css-expr->css
+   (css-expr
+    [p #:color |grey|])))

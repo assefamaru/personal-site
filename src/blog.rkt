@@ -1,14 +1,14 @@
 #lang racket
 
-(require "header.rkt"
+(require "meta.rkt"
          web-server/servlet)
 
-(provide/contract (blog-path (request? . -> . response?))
-                  (post-path (request? string? . -> . response?)))
+(provide/contract (list-posts (request? . -> . response?))
+                  (review-post (request? string? . -> . response?)))
 
-(define (blog-path request)
+(define (list-posts request)
   (response/xexpr
-   `(html ,(meta "Alexander Maru")
+   `(html ,(meta #:theme "light")
           (body
            (p "Blog page!")
            (a ((href "/"))
@@ -20,9 +20,9 @@
            (a ((href "/blog/3"))
               "Third blog")))))
 
-(define (post-path request name)
+(define (review-post request name)
   (response/xexpr
-   `(html ,(meta "Alexander Maru")
+   `(html ,(meta #:theme "light")
           (body
            (p ,(string-append "Hello, " name))
            (a ((href "/blog"))

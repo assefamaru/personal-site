@@ -1,12 +1,12 @@
 #lang racket
 
-(require "header.rkt"
+(require "meta.rkt"
          web-server/servlet)
 
-(provide error-path)
+(provide render-error)
 
-(define (error-path request)
+(define (render-error request)
   (response/xexpr
-   `(html ,(meta "Alexander Maru")
+   `(html ,(meta)
           (body
            (p "404: Page Not Found")))))
