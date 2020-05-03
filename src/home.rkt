@@ -9,6 +9,7 @@
   (response/xexpr
    `(html ,(meta)
           (body
-           (p "Home page!")
-           (a ((href "/blog"))
-              "see blog page!")))))
+           ,(vertical-lines)
+           
+           ))))
+

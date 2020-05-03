@@ -9,4 +9,5 @@
   (response/xexpr
    `(html ,(meta)
           (body
+           ,(vertical-lines)
            (p "404: Page Not Found")))))

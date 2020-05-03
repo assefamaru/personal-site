@@ -10,6 +10,7 @@
   (response/xexpr
    `(html ,(meta #:theme "light")
           (body
+           ,(vertical-lines)
            (p "Blog page!")
            (a ((href "/"))
               "see home page!")

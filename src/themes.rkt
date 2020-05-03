@@ -3,33 +3,44 @@
 (require css-expr
          web-server/servlet)
 
-(provide dark-theme light-theme render-styles)
+(provide dark-theme light-theme non-theme)
 
+;; Dark theme styles.
 (define dark-theme
   (css-expr->css
    (css-expr
     [body
-     #:margin 0
-     #:padding 0
-     #:background-color |gold|
      #:color |black|
-     #:font-family |"Source Sans Pro"|]
-    [a #:color |green|]
-    [a:hover #:color |red|])))
+     #:background-color |#22222A|]
+    [.vline #:border-left |1px solid #353541|])))
 
+;; Light theme styles.
 (define light-theme
+  (css-expr->css
+   (css-expr
+    [body
+     #:color |#333|
+     #:background-color |#F5F5F5|]
+    [.vline #:border-left |1px solid #E0E0E0|])))
+
+;; Non-theme styles.
+(define non-theme
   (css-expr->css
    (css-expr
     [body
      #:margin 0
      #:padding 0
-     #:background-color |#f7f7f7|
-     #:color |#333|
+     #:height 200vh
+     #:position relative
      #:font-family |"Source Sans Pro"|]
-    [a #:color |blue|]
-    [a:hover #:color |red|])))
-
-(define render-styles
-  (css-expr->css
-   (css-expr
-    [p #:color |grey|])))
+    [.vline
+     #:height 100%
+     #:position absolute
+     #:top 0
+     #:bottom 0
+     #:z-index -1]
+    [.vline1 #:left 50px]
+    [.vline2 #:left 25%]
+    [.vline3 #:left 50%]
+    [.vline4 #:left 75%]
+    [.vline5 #:right 50px])))

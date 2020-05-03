@@ -3,9 +3,10 @@
 (require "themes.rkt"
          web-server/servlet)
 
-(provide meta)
+(provide meta vertical-lines)
 
-;; head : string -> response
+;; meta : string -> response
+;; Produces the head section of each page.
 (define (meta #:title [title "Alexander Maru"] #:theme [theme "dark"])
   `(head
     (meta ((charset "utf-8")))
@@ -16,15 +17,43 @@
            (content "Alexander Maru")))
     (meta ((name "description")
            (content "Student, programmer, aspiring mathematician.")))
+    (link ((rel "shortcut icon")
+           (href "#")))
+    (meta ((property "og:title")
+           (content "Alexander Maru")))
+    (meta ((property "og:type")
+           (content "website")))
+    (meta ((property "og:image")
+           (content "#")))
+    (meta ((property "og:url")
+           (content "https://alexandermaru.com")))
+    (meta ((property "og:description")
+           (content "Student, programmer, aspiring mathematician.")))
+    (meta ((name "twitter:card")
+           (content "summary_large_image")))
+    (meta ((name "twitter:site")
+           (content "@assefamaru")))
+    (meta ((name "twitter:creator")
+           (content "@assefamaru")))
     (link ((rel "stylesheet")
-           (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900")))
+           (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,400i,600,700,900")))
     (style ,(if (equal? theme "dark")
                 dark-theme
                 light-theme))
-    (style ,render-styles)
-    (script ((type "text/javascript")
-             (src "https://use.fontawesome.com/78853d9834.js")))
+    (style ,non-theme)
     (script ((async "")
              (src "https://www.googletagmanager.com/gtag/js?id=UA-106749390-2")))
-    (script "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date()); gtag('config', 'UA-106749390-2');")))
+    (script "window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+             gtag('config', 'UA-106749390-2');")))
+
+;; Creates vertical lines in the
+;; background of every page.
+(define (vertical-lines)
+  `(span
+    (div ((class "vline vline1")))
+    (div ((class "vline vline2")))
+    (div ((class "vline vline3")))
+    (div ((class "vline vline4")))
+    (div ((class "vline vline5")))))
