@@ -1,12 +1,9 @@
 #lang racket
 
-(require "themes.rkt"
-         web-server/servlet)
+(require "themes.rkt")
 
 (provide meta vertical-lines)
 
-;; meta : string -> response
-;; Produces the head section of each page.
 (define (meta #:title [title "Alexander Maru"] #:theme [theme "dark"])
   `(head
     (meta ((charset "utf-8")))
@@ -18,13 +15,13 @@
     (meta ((name "description")
            (content "Student, programmer, aspiring mathematician.")))
     (link ((rel "shortcut icon")
-           (href "#")))
+           (href "https://s3.ca-central-1.amazonaws.com/assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:title")
            (content "Alexander Maru")))
     (meta ((property "og:type")
            (content "website")))
     (meta ((property "og:image")
-           (content "#")))
+           (content "https://s3.ca-central-1.amazonaws.com/assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:url")
            (content "https://alexandermaru.com")))
     (meta ((property "og:description")
@@ -49,8 +46,6 @@
              gtag('js', new Date());
              gtag('config', 'UA-106749390-2');")))
 
-;; Creates vertical lines in the
-;; background of every page.
 (define (vertical-lines)
   `(span
     (div ((class "vline vline1")))

@@ -1,6 +1,7 @@
 #lang racket
 
 (require "meta.rkt"
+         "header.rkt"
          "sidebar.rkt"
          web-server/servlet)
 
@@ -12,6 +13,7 @@
    `(html ,(meta #:theme "light")
           (body
            ,(vertical-lines)
+           ,(menu)
            ,(sidebar)
            ; Enter page content here =====
            (p "Blog page!")
@@ -25,13 +27,13 @@
               "Third blog")
            ; End of page content =========
            ))))
-           
 
 (define (review-post request name)
   (response/xexpr
    `(html ,(meta #:theme "light")
           (body
            ,(vertical-lines)
+           ,(menu)
            ,(sidebar)
            ; Enter page content here =====
            (p ,(string-append "Hello, " name))

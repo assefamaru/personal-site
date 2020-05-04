@@ -1,7 +1,6 @@
 #lang racket
 
-(require css-expr
-         web-server/servlet)
+(require css-expr)
 
 (provide dark-theme light-theme non-theme)
 
@@ -13,6 +12,7 @@
      #:color |black|
      #:background-color |#22222A|]
     [.vline #:border-left |1px solid #353541|]
+    [.hdrlink #:color |#BAC2C9|]
     [.sidebar
      [a #:color |#FFFFFF|]])))
 
@@ -24,6 +24,7 @@
      #:color |#333|
      #:background-color |#F5F5F5|]
     [.vline #:border-left |1px solid #E0E0E0|]
+    [.hdrlink #:color |#616161|]
     [.sidebar
      [a #:color |#616161|]])))
 
@@ -48,20 +49,32 @@
     [.vline3 #:left 50%]
     [.vline4 #:left 75%]
     [.vline5 #:right 50px]
+    [.header
+     #:width (- 100vw 100px)
+     #:height 70px
+     #:padding-left 50px
+     [.hdrlink
+      #:font-size 16px
+      #:position absolute
+      #:line-height 60px
+      #:font-weight bold]
+     [.hdrlink1 #:left 65px]
+     [.hdrlink2 #:left 26%]
+     [.hdrlink3 #:left 51%]
+     [.hdrlink4 #:left 76%]]
     [.sidebar
      #:width 50px
      #:height 100vh
      #:position fixed
      #:z-index 100
+     #:top 0
+     #:bottom 0
      [.sidebar-content
       #:bottom 10
-      #:position |absolute|
+      #:position absolute
       [a
        #:width 50px
        #:height 50px
        #:display |block|
        #:text-align |center|
-       [.fa #:line-height 50px]]]]
-                       
-
-    )))
+       [.fa #:line-height 50px]]]])))

@@ -20,7 +20,7 @@
                ; use serve/servlet in a startup script
                ; instead of opening a browser
                ; - set to #t on deploy
-               #:command-line? #f
+               #:command-line? #t
                ; set to #f and accept connections to
                ; all listening machine's addresses
                #:listen-ip #f

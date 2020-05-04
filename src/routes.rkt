@@ -3,7 +3,6 @@
 (require "home.rkt"
          "blog.rkt"
          "errors.rkt"
-         web-server/servlet
          web-server/dispatch)
 
 (provide route)

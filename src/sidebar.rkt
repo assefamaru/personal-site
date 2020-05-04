@@ -1,7 +1,5 @@
 #lang racket
 
-(require web-server/servlet)
-
 (provide sidebar)
 
 (define (sidebar)
