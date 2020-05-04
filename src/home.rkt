@@ -1,6 +1,7 @@
 #lang racket
 
 (require "meta.rkt"
+         "sidebar.rkt"
          web-server/servlet)
 
 (provide/contract (root-path (request? . -> . response?)))
@@ -10,6 +11,8 @@
    `(html ,(meta)
           (body
            ,(vertical-lines)
-           
+           ,(sidebar)
+           ; Enter page content here =====
+           ;(i ((data-feather "circle")))
+           ; End of page content =========
            ))))
-

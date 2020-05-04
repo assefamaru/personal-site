@@ -41,6 +41,7 @@
                 dark-theme
                 light-theme))
     (style ,non-theme)
+    (script ((src "https://use.fontawesome.com/78853d9834.js")))
     (script ((async "")
              (src "https://www.googletagmanager.com/gtag/js?id=UA-106749390-2")))
     (script "window.dataLayer = window.dataLayer || [];

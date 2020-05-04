@@ -1,6 +1,7 @@
 #lang racket
 
 (require "meta.rkt"
+         "sidebar.rkt"
          web-server/servlet)
 
 (provide/contract (list-posts (request? . -> . response?))
@@ -11,6 +12,8 @@
    `(html ,(meta #:theme "light")
           (body
            ,(vertical-lines)
+           ,(sidebar)
+           ; Enter page content here =====
            (p "Blog page!")
            (a ((href "/"))
               "see home page!")
@@ -19,12 +22,20 @@
            (a ((href "/blog/2"))
               "Second blog")
            (a ((href "/blog/3"))
-              "Third blog")))))
+              "Third blog")
+           ; End of page content =========
+           ))))
+           
 
 (define (review-post request name)
   (response/xexpr
    `(html ,(meta #:theme "light")
           (body
+           ,(vertical-lines)
+           ,(sidebar)
+           ; Enter page content here =====
            (p ,(string-append "Hello, " name))
            (a ((href "/blog"))
-              "Go back to blog page!")))))
+              "Go back to blog page!")
+           ; End of page content =========
+           ))))
