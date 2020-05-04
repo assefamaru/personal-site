@@ -4,6 +4,3 @@
 
 (define deps
   '("css-expr"))
-
-(define build-deps
-  '())
