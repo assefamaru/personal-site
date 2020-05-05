@@ -9,7 +9,9 @@
     (meta ((charset "utf-8")))
     (meta ((name "viewport")
            (content "width=device-width, initial-scale=1")))
-    (title ,title)
+    (title ,(if (equal? title "Alexander Maru")
+                title
+                (string-append title " | Alexander Maru")))
     (meta ((name "author")
            (content "Alexander Maru")))
     (meta ((name "description")

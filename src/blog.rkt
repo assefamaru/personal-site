@@ -10,7 +10,7 @@
 
 (define (list-posts request)
   (response/xexpr
-   `(html ,(meta #:theme "light")
+   `(html ,(meta #:title "Blog" #:theme "light")
           (body
            ,(vertical-lines)
            ,(menu)
