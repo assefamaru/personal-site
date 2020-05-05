@@ -16,7 +16,11 @@
     [.sidebar
      [a #:color |#FFFFFF|]]
     [.sidebar-right
-     [a #:color |#BAC2C9|]])))
+     [a #:color |#FFFFFF|]]
+    [.hero
+     [strong #:color |#FFFFFF|]]
+    [.hero-h1 #:color |#FFFFFF|]
+    [.hero-p #:color |#BAC2C9|])))
 
 ;; Light theme styles.
 (define light-theme
@@ -30,7 +34,11 @@
     [.sidebar
      [a #:color |#616161|]]
     [.sidebar-right
-     [a #:color |#616161|]])))
+     [a #:color |#616161|]]
+    [.hero
+     [strong #:color |#616161|]]
+    [.hero-h1 #:color |#616161|]
+    [.hero-p #:color |#616161|])))
 
 ;; Non-theme styles.
 (define non-theme
@@ -53,9 +61,6 @@
     [.vline3 #:left 50%]
     [.vline4 #:left 75%]
     [.vline5 #:right 50px]
-    [@media (and screen (#:max-width 700px))
-            [.vline2 #:display none]
-            [.vline4 #:display none]]
     [.header
      #:width (- 100vw 100px)
      #:padding-top 20px
@@ -74,20 +79,7 @@
        [.hdr-a2 #:left 26%]
        [.hdr-a3
         #:left 26%
-        #:margin-top 30px]]]
-     [@media (and screen (#:max-width 700px))
-             [.hdr-ul
-              #:display block
-              [.hdr-li #:margin-left -25px]
-              [.hdr-a
-               #:display block
-               #:position |relative !important|
-               #:margin-bottom 10px]
-              [.hdr-a1 #:left |0 !important|]
-              [.hdr-a2 #:left |0 !important|]
-              [.hdr-a3
-               #:left |0 !important|
-               #:margin-top |0 !important|]]]]
+        #:margin-top 30px]]]]
     [.sidebar
      #:width 50px
      #:height 100vh
@@ -114,4 +106,21 @@
        #:height 50px
        #:display |block|
        #:text-align |center|
-       [.fa #:line-height 50px]]]])))
+       [.fa #:line-height 50px]]]]
+    [.hero
+     #:max-width 600px
+     #:position absolute
+     #:margin-top 30vh
+     #:margin-right 15px
+     #:left 26%
+     [.hero-h1
+      #:font-size 80px
+      #:margin 0]]
+    [@media (and screen (#:max-width 700px))
+            [.vline2 #:display none]
+            [.vline4 #:display none]
+            [.hdr-a2 #:left |53% !important|]
+            [.hdr-a3 #:left |53% !important|]
+            [.hero
+             #:left 65px
+             #:margin-top 15vh]])))
