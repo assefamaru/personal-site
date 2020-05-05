@@ -14,4 +14,5 @@
            ,(vertical-lines)
            ,(menu)
            ,(sidebar)
+           ,(sidebar-right)
            (p "404: Page Not Found")))))

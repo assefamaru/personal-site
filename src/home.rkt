@@ -14,6 +14,7 @@
            ,(vertical-lines)
            ,(menu)
            ,(sidebar)
+           ,(sidebar-right)
            ; Enter page content here =====
            ;(i ((data-feather "circle")))
            ; End of page content =========

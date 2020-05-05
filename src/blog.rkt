@@ -15,6 +15,7 @@
            ,(vertical-lines)
            ,(menu)
            ,(sidebar)
+           ,(sidebar-right)
            ; Enter page content here =====
            (p "Blog page!")
            (a ((href "/"))
@@ -35,6 +36,7 @@
            ,(vertical-lines)
            ,(menu)
            ,(sidebar)
+           ,(sidebar-right)
            ; Enter page content here =====
            (p ,(string-append "Hello, " name))
            (a ((href "/blog"))

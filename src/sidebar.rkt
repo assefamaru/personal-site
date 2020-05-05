@@ -1,6 +1,6 @@
 #lang racket
 
-(provide sidebar)
+(provide sidebar sidebar-right)
 
 (define (sidebar)
   `(div ((class "sidebar"))
@@ -24,4 +24,14 @@
              (a ((href "https://www.instagram.com/assefamaru")
                  (target "_blank"))
                 (i ((class "fa fa-instagram")
+                    (area-hidden "true")))))))
+
+(define (sidebar-right)
+  `(div ((class "sidebar sidebar-right"))
+        (div ((class "sidebar-right-content"))
+             (a ((href "/login"))
+                (i ((class "fa fa-lock")
+                    (area-hidden "true"))))
+             (a ((href "#"))
+                (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
