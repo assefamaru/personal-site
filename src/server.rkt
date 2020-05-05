@@ -1,15 +1,8 @@
 #lang racket
 
-(require "routes.rkt"
+(require "db.rkt"
+         "routes.rkt"
          web-server/servlet-env)
-
-;; If port is set by environment,
-;; use that value. Otherwise, use
-;; port=3000 as default.
-(define port
-  (if (getenv "PORT")
-      (string->number (getenv "PORT"))
-      3000))
 
 ;; start : request -> response
 (define (start request)

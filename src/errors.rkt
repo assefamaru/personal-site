@@ -3,6 +3,7 @@
 (require "meta.rkt"
          "header.rkt"
          "sidebar.rkt"
+         "footer.rkt"
          web-server/servlet)
 
 (provide render-error)
@@ -15,4 +16,5 @@
            ,(menu)
            ,(sidebar)
            ,(sidebar-right)
+           ,(footer)
            (p "404: Page Not Found")))))

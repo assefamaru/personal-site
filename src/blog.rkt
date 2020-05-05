@@ -1,8 +1,10 @@
 #lang racket
 
-(require "meta.rkt"
+(require "db.rkt"
+         "meta.rkt"
          "header.rkt"
          "sidebar.rkt"
+         "footer.rkt"
          web-server/servlet)
 
 (provide/contract (list-posts (request? . -> . response?))
@@ -10,12 +12,13 @@
 
 (define (list-posts request)
   (response/xexpr
-   `(html ,(meta #:title "Blog" #:theme "light")
+   `(html ,(meta #:title "Blog")
           (body
            ,(vertical-lines)
            ,(menu)
            ,(sidebar)
            ,(sidebar-right)
+           ,(footer)
            ; Enter page content here =====
            (p "Blog page!")
            (a ((href "/"))
@@ -37,6 +40,7 @@
            ,(menu)
            ,(sidebar)
            ,(sidebar-right)
+           ,(footer)
            ; Enter page content here =====
            (p ,(string-append "Hello, " name))
            (a ((href "/blog"))

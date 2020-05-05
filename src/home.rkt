@@ -3,6 +3,7 @@
 (require "meta.rkt"
          "header.rkt"
          "sidebar.rkt"
+         "footer.rkt"
          web-server/servlet)
 
 (provide/contract (root-path (request? . -> . response?)))
@@ -15,6 +16,7 @@
            ,(menu)
            ,(sidebar)
            ,(sidebar-right)
+           ,(footer)
            ,(hero)))))
 
 (define (hero)
