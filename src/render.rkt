@@ -20,16 +20,16 @@
            (div ((class "vline vline3")))
            (div ((class "vline vline4")))
            (div ((class "vline vline5")))
-           ,(header)
-           ,(sidebar)
-           ,(sidebar-right)
+           ,header
+           ,sidebar
+           ,sidebar-right
            ,@(map
               (lambda (c)
                 (if (null? params)
                     (c)
                     (c params)))
               components)
-           ,(footer)))))
+           ,footer))))
 
 (define (meta title theme)
   `(head
@@ -75,7 +75,7 @@
              gtag('js', new Date());
              gtag('config', 'UA-106749390-2');")))
 
-(define (header)
+(define header
   `(header ((class "header"))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
@@ -100,7 +100,7 @@
                        (class "hdr-a hdr-a5"))
                       "More")))))
 
-(define (sidebar)
+(define sidebar
   `(div ((class "sidebar"))
         (div ((class "sidebar-content"))
              (a ((href "https://github.com/assefamaru")
@@ -124,7 +124,7 @@
                 (i ((class "fa fa-instagram")
                     (area-hidden "true")))))))
 
-(define (sidebar-right)
+(define sidebar-right
   `(div ((class "sidebar sidebar-right"))
         (div ((class "sidebar-right-content"))
              (a ((href "/login"))
@@ -134,7 +134,7 @@
                 (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
 
-(define (footer)
+(define footer
   `(div ((class "footer"))
         (small
          "Copyright © 2015 — "
