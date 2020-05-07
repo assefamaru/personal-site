@@ -1,14 +1,14 @@
-#lang racket
+#lang racket/base
 
-(require "db.rkt"
+(require "model.rkt"
          "meta.rkt"
          "header.rkt"
          "sidebar.rkt"
          "footer.rkt"
          web-server/servlet)
 
-(provide/contract (list-posts (request? . -> . response?))
-                  (review-post (request? string? . -> . response?)))
+(provide list-posts
+         review-post)
 
 (define (list-posts request)
   (response/xexpr

@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 (require "meta.rkt"
          "header.rkt"
@@ -6,7 +6,7 @@
          "footer.rkt"
          web-server/servlet)
 
-(provide/contract (root-path (request? . -> . response?)))
+(provide root-path)
 
 (define (root-path request)
   (response/xexpr
