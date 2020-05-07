@@ -23,8 +23,5 @@
                #:servlet-path "/"
                ; servlet is run as a stateless module
                #:stateless? #t
-               ; serve additional files aside from the
-               ; ones served by #:server-root-path "htdocs"
-               #:extra-files-paths '()
                ; capture all top level requests
                #:servlet-regexp #rx"")

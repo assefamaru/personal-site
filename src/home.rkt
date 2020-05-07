@@ -1,23 +1,12 @@
 #lang racket/base
 
-(require "meta.rkt"
-         "header.rkt"
-         "sidebar.rkt"
-         "footer.rkt"
+(require "render.rkt"
          web-server/servlet)
 
 (provide root-path)
 
 (define (root-path request)
-  (response/xexpr
-   `(html ,(meta)
-          (body
-           ,(vertical-lines)
-           ,(menu)
-           ,(sidebar)
-           ,(sidebar-right)
-           ,(footer)
-           ,(hero)))))
+  (render-page request hero))
 
 (define (hero)
   `(div ((class "hero"))
