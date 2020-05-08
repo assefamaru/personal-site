@@ -6,5 +6,4 @@
 
 (define (string-clean str)
   (apply string-append
-         (map string-trim
-              (string-split str "\n"))))
+         (string-split str "\n")))

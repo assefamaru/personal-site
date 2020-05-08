@@ -6,7 +6,7 @@
 (provide error-not-found)
 
 (define (error-not-found request)
-  (render-page request #:code 404 #:error #t not-found))
+  (render-page request #:error #t #:code 404 not-found))
 
 (define (not-found)
   `(div ((class "error"))

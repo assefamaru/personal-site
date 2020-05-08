@@ -7,18 +7,18 @@
 (provide render-page)
 
 (define (render-page request
-                     #:title       [title #f]
-                     #:description [description #f]
-                     #:theme       [theme #f]
-                     #:params      [params #f]
-                     #:code        [code 200]
-                     #:error       [error #f]
+                     #:title  [title  #f]
+                     #:desc   [desc   #f]
+                     #:theme  [theme  #f]
+                     #:params [params #f]
+                     #:error  [error  #f]
+                     #:code   [code   200]
                      .
                      components)
   (response/xexpr
    #:code code
    #:preamble #"<!DOCTYPE html>"
-   `(html ,(meta title description theme error)
+   `(html ,(meta title desc theme error)
           (body
            (div ((class "vline vline1")))
            (div ((class "vline vline2")))
@@ -37,7 +37,7 @@
            (div ((class "spacer")))
            ,footer))))
 
-(define (meta title description theme error)
+(define (meta title desc theme error)
   `(head
     (meta ((charset "utf-8")))
     (meta ((name "viewport")
@@ -46,9 +46,9 @@
     (meta ((name "author")
            (content "Alexander Maru")))
     (meta ((name "description")
-           (content ,(if (not description)
+           (content ,(if (not desc)
                          "Student, programmer, aspiring mathematician."
-                         description))))
+                         desc))))
     (link ((rel "shortcut icon")
            (href "https://assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:title")
@@ -60,9 +60,9 @@
     (meta ((property "og:url")
            (content "https://alexandermaru.com")))
     (meta ((property "og:description")
-           (content ,(if (not description)
+           (content ,(if (not desc)
                          "Student, programmer, aspiring mathematician."
-                         description))))
+                         desc))))
     (meta ((name "twitter:card")
            (content "summary_large_image")))
     (meta ((name "twitter:site")
@@ -99,7 +99,7 @@
                       "Home")))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
-                   (a ((href "/blog")
+                   (a ((href "#")
                        (class "hdr-a hdr-a2"))
                       "Blog"))
                (li ((class "hdr-li"))
