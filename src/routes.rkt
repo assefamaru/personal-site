@@ -14,4 +14,4 @@
    [("") root-path]
    [("blog") list-posts]
    [("blog" (string-arg)) review-post]
-   [else render-error]))
+   [else error-not-found]))

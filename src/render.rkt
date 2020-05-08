@@ -1,17 +1,18 @@
 #lang racket/base
 
 (require "themes.rkt"
+         "utils.rkt"
          web-server/servlet)
 
 (provide render-page)
 
 (define (render-page request
-                     #:title [title #f]
+                     #:title       [title #f]
                      #:description [description #f]
-                     #:theme [theme #f]
-                     #:params [params #f]
-                     #:code [code 200]
-                     #:error [error #f]
+                     #:theme       [theme #f]
+                     #:params      [params #f]
+                     #:code        [code 200]
+                     #:error       [error #f]
                      .
                      components)
   (response/xexpr
@@ -33,7 +34,7 @@
                     (c)
                     (c params)))
               components)
-           ,spacer
+           (div ((class "spacer")))
            ,footer))))
 
 (define (meta title description theme error)
@@ -77,10 +78,10 @@
     (script ((src "https://use.fontawesome.com/78853d9834.js")))
     (script ((async "")
              (src "https://www.googletagmanager.com/gtag/js?id=UA-106749390-2")))
-    (script "window.dataLayer = window.dataLayer || [];
-             function gtag(){dataLayer.push(arguments);}
-             gtag('js', new Date());
-             gtag('config', 'UA-106749390-2');")))
+    (script ,(string-clean "window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', 'UA-106749390-2');"))))
 
 (define (make-title title error)
   (cond
@@ -98,7 +99,7 @@
                       "Home")))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
-                   (a ((href "#")
+                   (a ((href "/blog")
                        (class "hdr-a hdr-a2"))
                       "Blog"))
                (li ((class "hdr-li"))
@@ -147,9 +148,6 @@
              (a ((href "#"))
                 (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
-
-(define spacer
-  `(div ((class "spacer"))))
 
 (define footer
   `(div ((class "footer"))

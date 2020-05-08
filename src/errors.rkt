@@ -3,10 +3,16 @@
 (require "render.rkt"
          web-server/servlet)
 
-(provide render-error)
+(provide error-not-found)
 
-(define (render-error request)
-  (render-page request #:code 404 #:error #t error-body))
+(define (error-not-found request)
+  (render-page request #:code 404 #:error #t not-found))
 
-(define (error-body)
-  `(p "404: Page Not Found"))
+(define (not-found)
+  `(div ((class "error"))
+        (h1 "404: Page Not Found")
+        (p
+         "Go back to "
+         (a ((href "/"))
+            "home page")
+         ".")))

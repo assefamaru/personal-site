@@ -114,8 +114,7 @@
      #:bottom 0
      #:margin-bottom 35px
      #:left 76%
-     #:font-weight bold
-     [a #:text-decoration none]]
+     #:font-weight bold]
     [.hero
      #:max-width 600px
      #:position absolute
