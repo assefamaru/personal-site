@@ -5,15 +5,19 @@
 
 (provide render-page)
 
-(define (render-page
-         request
-         #:title  [title "Alexander Maru"]
-         #:theme  [theme "dark"]
-         #:params [params '()]
-         .
-         components)
+(define (render-page request
+                     #:title [title #f]
+                     #:description [description #f]
+                     #:theme [theme #f]
+                     #:params [params #f]
+                     #:code [code 200]
+                     #:error [error #f]
+                     .
+                     components)
   (response/xexpr
-   `(html ,(meta title theme)
+   #:code code
+   #:preamble #"<!DOCTYPE html>"
+   `(html ,(meta title description theme error)
           (body
            (div ((class "vline vline1")))
            (div ((class "vline vline2")))
@@ -25,36 +29,39 @@
            ,sidebar-right
            ,@(map
               (lambda (c)
-                (if (null? params)
+                (if (not params)
                     (c)
                     (c params)))
               components)
+           ,spacer
            ,footer))))
 
-(define (meta title theme)
+(define (meta title description theme error)
   `(head
     (meta ((charset "utf-8")))
     (meta ((name "viewport")
            (content "width=device-width, initial-scale=1")))
-    (title ,(if (equal? title "Alexander Maru")
-                title
-                (string-append title " | Alexander Maru")))
+    (title ,(make-title title error))
     (meta ((name "author")
            (content "Alexander Maru")))
     (meta ((name "description")
-           (content "Student, programmer, aspiring mathematician.")))
+           (content ,(if (not description)
+                         "Student, programmer, aspiring mathematician."
+                         description))))
     (link ((rel "shortcut icon")
-           (href "https://s3.ca-central-1.amazonaws.com/assets.alexandermaru.com/favicon.png")))
+           (href "https://assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:title")
-           (content "Alexander Maru")))
+           (content ,(make-title title error))))
     (meta ((property "og:type")
            (content "website")))
     (meta ((property "og:image")
-           (content "https://s3.ca-central-1.amazonaws.com/assets.alexandermaru.com/favicon.png")))
+           (content "https://assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:url")
            (content "https://alexandermaru.com")))
     (meta ((property "og:description")
-           (content "Student, programmer, aspiring mathematician.")))
+           (content ,(if (not description)
+                         "Student, programmer, aspiring mathematician."
+                         description))))
     (meta ((name "twitter:card")
            (content "summary_large_image")))
     (meta ((name "twitter:site")
@@ -63,7 +70,7 @@
            (content "@assefamaru")))
     (link ((rel "stylesheet")
            (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,400i,600,700,900")))
-    (style ,(if (equal? theme "dark")
+    (style ,(if (not theme)
                 dark-theme
                 light-theme))
     (style ,non-theme)
@@ -74,6 +81,13 @@
              function gtag(){dataLayer.push(arguments);}
              gtag('js', new Date());
              gtag('config', 'UA-106749390-2');")))
+
+(define (make-title title error)
+  (cond
+    (error "Error 404 (Not Found)")
+    ((not title) "Alexander Maru")
+    (else
+     (string-append title " | Alexander Maru"))))
 
 (define header
   `(header ((class "header"))
@@ -133,6 +147,9 @@
              (a ((href "#"))
                 (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
+
+(define spacer
+  `(div ((class "spacer"))))
 
 (define footer
   `(div ((class "footer"))

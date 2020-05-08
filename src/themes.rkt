@@ -44,7 +44,6 @@
     [body
      #:margin 0
      #:padding 0
-     #:height 101vh
      #:min-height 101vh
      #:position relative
      #:font-family |"Source Sans Pro"|]
@@ -88,8 +87,9 @@
      #:top 0
      #:bottom 0
      [.sidebar-content
-      #:bottom 10
       #:position absolute
+      #:bottom 0
+      #:margin-bottom 10px
       [a
        #:width 50px
        #:height 50px
@@ -99,7 +99,8 @@
     [.sidebar-right
      #:right 0
      [.sidebar-right-content
-      #:top 8
+      #:top 0
+      #:margin-top 20
       #:position absolute
       [a
        #:width 50px
@@ -107,15 +108,18 @@
        #:display |block|
        #:text-align |center|
        [.fa #:line-height 50px]]]]
+    [.spacer #:height 80px]
     [.footer
      #:position absolute
-     #:bottom 35
+     #:bottom 0
+     #:margin-bottom 35px
      #:left 76%
-     #:font-weight bold]
+     #:font-weight bold
+     [a #:text-decoration none]]
     [.hero
      #:max-width 600px
      #:position absolute
-     #:margin-top 30vh
+     #:margin-top 28vh
      #:margin-right 15px
      #:left 26%
      [.hero-h1
@@ -136,4 +140,4 @@
             [.footer #:left |65px !important|]
             [.hero
              #:left 65px
-             #:margin-top 20vh]])))
+             #:margin-top 18vh]])))

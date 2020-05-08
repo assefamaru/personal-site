@@ -27,9 +27,8 @@
   (virtual-connection
    (connection-pool
     (lambda ()
-      (mysql-connect
-       #:server server
-       #:port port
-       #:database database
-       #:user user
-       #:password password)))))
+      (mysql-connect #:server server
+                     #:port port
+                     #:database database
+                     #:user user
+                     #:password password)))))

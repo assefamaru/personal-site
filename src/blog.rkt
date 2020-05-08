@@ -14,22 +14,26 @@
 
 (define (review-post request name)
   (render-page request
-               #:title "Blog"
+               #:title "Post"
                #:theme "light"
                #:params (list name)
                fake-post))
 
+(define (gen-divs maxp)
+  `(div ,@(map
+           (lambda (x)
+             (define y (number->string x))
+             `(div (a ((href ,(string-append "/blog/" y)))
+                      (string-append "Blog - " y))))
+           (build-list maxp values))))
+
 (define (fake-blog)
   `(div
     (p "Blog page!")
-    (a ((href "/"))
-       "see home page!")
-    (a ((href "/blog/1"))
-       "First blog")
-    (a ((href "/blog/2"))
-       "Second blog")
-    (a ((href "/blog/3"))
-       "Third blog")))
+    (div
+     (a ((href "/"))
+        "see home page!"))
+    ,(gen-divs 50)))
 
 (define (fake-post name)
   `(div
