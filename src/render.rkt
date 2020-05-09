@@ -1,11 +1,24 @@
 #lang racket/base
 
-(require "themes.rkt"
-         "utils.rkt"
-         web-server/servlet)
+(require web-server/servlet
+         "themes.rkt"
+         "utils.rkt")
 
 (provide render-page)
 
+;; (render-page request?
+;;             [#:title: (or string? #f)
+;;              #:desc: (or string? #f)
+;;              #:theme: (or string? #f)
+;;              #:params: (or any #f)
+;;              #:error: boolean?
+;;              #:code: integer?]
+;;              .
+;;              (listof xexpr)) -> response?
+;; Consumes a request, keyword args, and xexpr components,
+;; and produces a page that displays all the components.
+;; Acts as a template to produce the full content for every
+;; page served by site.
 (define (render-page request
                      #:title  [title  #f]
                      #:desc   [desc   #f]
@@ -37,6 +50,11 @@
            (div ((class "spacer")))
            ,footer))))
 
+;; (meta (or string? #f)
+;;       (or string? #f)
+;;       (or string? #f)
+;;       boolean?) -> xexpr
+;; Produces the head section of each web page.
 (define (meta title desc theme error)
   `(head
     (meta ((charset "utf-8")))
@@ -83,6 +101,8 @@
                             gtag('js', new Date());
                             gtag('config', 'UA-106749390-2');"))))
 
+;; (make-title (or string? #f) boolean?) -> string?
+;; Produces a dynamic title for each web page.
 (define (make-title title error)
   (cond
     (error "Error 404 (Not Found)")
@@ -90,6 +110,8 @@
     (else
      (string-append title " | Alexander Maru"))))
 
+;; header: xexpr
+;; The site header.
 (define header
   `(header ((class "header"))
            (ul ((class "hdr-ul"))
@@ -115,6 +137,8 @@
                        (class "hdr-a hdr-a5"))
                       "More")))))
 
+;; sidebar: xexpr
+;; The site sidebar (left).
 (define sidebar
   `(div ((class "sidebar"))
         (div ((class "sidebar-content"))
@@ -139,6 +163,8 @@
                 (i ((class "fa fa-instagram")
                     (area-hidden "true")))))))
 
+;; sidebar-right: xexpr
+;; The site sidebar (right).
 (define sidebar-right
   `(div ((class "sidebar sidebar-right"))
         (div ((class "sidebar-right-content"))
@@ -149,6 +175,8 @@
                 (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
 
+;; footer: xexpr
+;; The site footer.
 (define footer
   `(div ((class "footer"))
         (small

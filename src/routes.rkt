@@ -1,15 +1,14 @@
 #lang racket/base
 
-(require "home.rkt"
+(require web-server/dispatch
+         "home.rkt"
          "blog.rkt"
-         "errors.rkt"
-         web-server/dispatch)
+         "errors.rkt")
 
 (provide route)
 
-;; URL dispatching rules
-;; for site routes.
-(define-values (route a-url)
+;; URL dispatching rules for site routes.
+(define-values (route request)
   (dispatch-rules
    [("") root-path]
    [("blog") list-posts]

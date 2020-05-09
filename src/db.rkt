@@ -23,6 +23,8 @@
 (define password
   (getenv "PASSWORD"))
 
+;; Create actual connections on demand
+;; in a connection pool.
 (define db-conn
   (virtual-connection
    (connection-pool

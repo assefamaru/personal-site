@@ -1,10 +1,12 @@
 #lang racket/base
 
-(require "db.rkt"
-         "routes.rkt"
-         web-server/servlet-env)
+(require web-server/servlet-env
+         "db.rkt"
+         "routes.rkt")
 
-;; start : request -> response
+;; start : request? -> doesn't return
+;; Consumes a request and produces a page
+;; that displays all of the web content.
 (define (start request)
   (route request))
 
@@ -12,10 +14,10 @@
 (serve/servlet start
                ; use serve/servlet in a startup script
                ; instead of opening a browser
-               ; - set to #t on deploy
+               ; - set to #t in production
                #:command-line? #t
                ; set to #f and accept connections to
-               ; all listening machine's addresses
+               ; all listening machines' addresses
                #:listen-ip #f
                ; set the port
                #:port port
