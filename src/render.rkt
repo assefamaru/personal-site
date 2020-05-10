@@ -20,18 +20,19 @@
 ;; Acts as a template to produce the full content of every
 ;; page served by site.
 (define (render-page request
-                     #:title  [title  #f]
-                     #:desc   [desc   #f]
-                     #:theme  [theme  #f]
-                     #:params [params #f]
-                     #:error  [error  #f]
-                     #:code   [code   200]
+                     #:title   [title   #f]
+                     #:desc    [desc    #f]
+                     #:theme   [theme   #f]
+                     #:params  [params  #f]
+                     #:error   [error   #f]
+                     #:code    [code    200]
+                     #:message [message "OK"]
                      .
                      components)
   (response/xexpr
    #:code code
    #:preamble #"<!DOCTYPE html>"
-   `(html ,(meta title desc theme error)
+   `(html ,(meta title desc theme error code message)
           (body
            (div ((class "vline vline1")))
            (div ((class "vline vline2")))
@@ -55,12 +56,12 @@
 ;;       (or string? #f)
 ;;       boolean?) -> xexpr
 ;; Produces the head section of each web page.
-(define (meta title desc theme error)
+(define (meta title desc theme error code message)
   `(head
     (meta ((charset "utf-8")))
     (meta ((name "viewport")
            (content "width=device-width, initial-scale=1")))
-    (title ,(make-title title error))
+    (title ,(make-title title error code message))
     (meta ((name "author")
            (content "Alexander Maru")))
     (meta ((name "description")
@@ -70,7 +71,7 @@
     (link ((rel "shortcut icon")
            (href "https://assets.alexandermaru.com/favicon.png")))
     (meta ((property "og:title")
-           (content ,(make-title title error))))
+           (content ,(make-title title error code message))))
     (meta ((property "og:type")
            (content "website")))
     (meta ((property "og:image")
@@ -103,9 +104,10 @@
 
 ;; (make-title (or string? #f) boolean?) -> string?
 ;; Produces a dynamic title for each web page.
-(define (make-title title error)
+(define (make-title title error code message)
   (cond
-    (error "Error 404 (Not Found)")
+    (error (string-append
+            "Error " (number->string code) " (" message ")"))
     ((not title) "Alexander Maru")
     (else
      (string-append title " | Alexander Maru"))))

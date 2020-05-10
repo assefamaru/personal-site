@@ -3,19 +3,42 @@
 (require "render.rkt"
          web-server/servlet)
 
-(provide error-not-found)
+(provide error-bad-request
+         error-unauthorized
+         error-not-found
+         error-internal-server)
 
 (define (error-bad-request request)
-  (render-page request #:error #t #:code 400 bad-request #:params request))
+  (render-page request
+               #:error #t
+               #:code 400
+               #:message "Bad Request"
+               bad-request
+               #:params request))
 
 (define (error-unauthorized request)
-  (render-page request #:error #t #:code 401 unauthorized #:params request))
+  (render-page request
+               #:error #t
+               #:code 401
+               #:message "Unauthorized"
+               unauthorized
+               #:params request))
 
 (define (error-not-found request)
-  (render-page request #:error #t #:code 404 not-found #:params request))
+  (render-page request
+               #:error #t
+               #:code 404
+               #:message "Not Found"
+               not-found
+               #:params request))
 
 (define (error-internal-server request)
-  (render-page request #:error #t #:code 500 internal-server-error #:params request))
+  (render-page request
+               #:error #t
+               #:code 500
+               #:message "Internal Server Error"
+               internal-server-error
+               #:params request))
 
 ;; Error type 400: bad request.
 (define (bad-request request)
@@ -44,6 +67,7 @@
   `(div ((class "error"))
         (h1 (strong ,code "!"))
         (p "Error status: " ,message ".")
-        ,(unless (not details)
-           details)
+        ,(if (not details)
+             `(span)
+             details)
         (p "Go back to " (a ((href "/")) "home page") ".")))
