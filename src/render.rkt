@@ -17,7 +17,7 @@
 ;;              (listof xexpr)) -> response?
 ;; Consumes a request, keyword args, and xexpr components,
 ;; and produces a page that displays all the components.
-;; Acts as a template to produce the full content for every
+;; Acts as a template to produce the full content of every
 ;; page served by site.
 (define (render-page request
                      #:title  [title  #f]
@@ -178,12 +178,12 @@
 ;; footer: xexpr
 ;; The site footer.
 (define footer
-  `(div ((class "footer"))
-        (small
-         "Copyright © 2015 — "
-         (span ((id "year")))
-         ", "
-         (a ((href "https://alexandermaru.com"))
-            "@assefamaru")
-         ".")
-        (script "document.getElementById(\"year\").innerHTML = new Date().getFullYear();")))
+  `(footer ((class "footer"))
+           (small
+            "Copyright © 2015 — "
+            (span ((id "year")))
+            ", "
+            (a ((href "https://alexandermaru.com"))
+               "@assefamaru")
+            ".")
+           (script "document.getElementById(\"year\").innerHTML = new Date().getFullYear();")))

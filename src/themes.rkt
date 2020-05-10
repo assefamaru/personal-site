@@ -11,15 +11,14 @@
     [body
      #:color |#BAC2C9|
      #:background-color |#22222A|
-     [a #:color |#E91E63|]]
+     [a #:color |#E91E63|]
+     [strong #:color |#FFFFFF|]]
     [.vline #:border-left |1px solid #353541|]
     [.hdr-a #:color |#BAC2C9|]
     [.sidebar
      [a #:color |#FFFFFF|]]
     [.sidebar-right
      [a #:color |#FFFFFF|]]
-    [.hero
-     [strong #:color |#FFFFFF|]]
     [.hero-h1 #:color |#FFFFFF|])))
 
 ;; Light theme styles.
@@ -115,6 +114,15 @@
      #:margin-bottom 35px
      #:left 76%
      #:font-weight bold]
+    [.error
+     #:max-width 600px
+     #:position absolute
+     #:margin-top 28vh
+     #:margin-right 15px
+     #:left 26%
+     [h1
+      #:font-size 80px
+      #:margin 0]]
     [.hero
      #:max-width 600px
      #:position absolute
@@ -137,6 +145,9 @@
              #:left |53% !important|
              #:margin-top 90px]
             [.footer #:left |65px !important|]
+            [.error
+             #:left 65px
+             #:margin-top 20vh]
             [.hero
              #:left 65px
              #:margin-top 18vh]])))
