@@ -7,12 +7,13 @@
 (provide render-page)
 
 ;; (render-page request?
-;;             [#:title: (or string? #f)
-;;              #:desc: (or string? #f)
-;;              #:theme: (or string? #f)
-;;              #:params: (or any #f)
-;;              #:error: boolean?
-;;              #:code: integer?]
+;;             [#:title   : (or string? #f)
+;;              #:desc    : (or string? #f)
+;;              #:theme   : (or string? #f)
+;;              #:params  : (or any #f)
+;;              #:error   : boolean?
+;;              #:code    : integer?
+;;              #:message : string?]
 ;;              .
 ;;              (listof xexpr)) -> response?
 ;; Consumes a request, keyword args, and xexpr components,
@@ -54,7 +55,9 @@
 ;; (meta (or string? #f)
 ;;       (or string? #f)
 ;;       (or string? #f)
-;;       boolean?) -> xexpr
+;;       boolean?
+;;       integer?
+;;       string?) -> xexpr
 ;; Produces the head section of each web page.
 (define (meta title desc theme error code message)
   `(head
@@ -102,7 +105,7 @@
                             gtag('js', new Date());
                             gtag('config', 'UA-106749390-2');"))))
 
-;; (make-title (or string? #f) boolean?) -> string?
+;; (make-title (or string? #f) boolean? integer? string?) -> string?
 ;; Produces a dynamic title for each web page.
 (define (make-title title error code message)
   (cond
