@@ -42,32 +42,27 @@
 
 ;; Error type 400: bad request.
 (define (bad-request request)
-  (error/xexpr "400" "Bad Request"))
+  (error/xexpr "Bad Request."))
 
 ;; Error type 401: unauthorized.
 (define (unauthorized request)
-  (error/xexpr "401" "Unauthorized"))
+  (error/xexpr "Unauthorized."))
 
 ;; Error type 404: not found.
 (define (not-found request)
-  (error/xexpr "404"
-               "Not Found"
-               `(p "The requested URL "
+  (error/xexpr `(p "The requested URL "
                    (strong ,(url->string (request-uri request)))
                    " was not found on this server.")))
 
 ;; Error type 500: internal server error.
 (define (internal-server-error request)
-  (error/xexpr "500" "Internal Server Error"))
+  (error/xexpr "Internal Server Error."))
 
-;; error/xexpr : string? string? -> xexpr
+;; error/xexpr : string? -> xexpr
 ;; Produces an error component to be displayed
 ;; on the web when something has gone wrong.
-(define (error/xexpr code message [details #f])
+(define (error/xexpr message)
   `(div ((class "error"))
-        (h1 (strong ,code "!"))
-        (p "Error status: " ,message ".")
-        ,(if (not details)
-             `(span)
-             details)
+        (h1 (strong "Oops!"))
+        (p ,message)
         (p "Go back to " (a ((href "/")) "home page") ".")))
