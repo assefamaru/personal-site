@@ -41,7 +41,7 @@
            (div ((class "vline vline4")))
            (div ((class "vline vline5")))
            ,header
-           ,sidebar
+           ,sidebar-left
            ,sidebar-right
            ,@(map
               (lambda (c)
@@ -142,11 +142,11 @@
                        (class "hdr-a hdr-a5"))
                       "More")))))
 
-;; sidebar: xexpr
+;; sidebar-left: xexpr
 ;; The site sidebar (left).
-(define sidebar
-  `(div ((class "sidebar"))
-        (div ((class "sidebar-content"))
+(define sidebar-left
+  `(div ((class "sidebar sidebar-left"))
+        (div ((class "sidebar-left-content"))
              (a ((href "https://github.com/assefamaru")
                  (target "_blank"))
                 (i ((class "fa fa-github")
@@ -173,11 +173,12 @@
 (define sidebar-right
   `(div ((class "sidebar sidebar-right"))
         (div ((class "sidebar-right-content"))
+             (a ((href "#")
+                 (title "Switch theme"))
+                (i ((class "fa fa-adjust")
+                    (area-hidden "true"))))
              (a ((href "/login"))
                 (i ((class "fa fa-lock")
-                    (area-hidden "true"))))
-             (a ((href "#"))
-                (i ((class "fa fa-adjust")
                     (area-hidden "true")))))))
 
 ;; footer: xexpr

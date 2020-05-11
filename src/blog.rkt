@@ -32,7 +32,7 @@
     (p "Blog page!")
     (div
      (a ((href "/"))
-        "see home page!"))
+        "see home pages!"))
     ,(gen-divs 50)))
 
 (define (fake-post name)

@@ -85,28 +85,23 @@
      #:z-index 100
      #:top 0
      #:bottom 0
-     [.sidebar-content
+     [a
+      #:width 50px
+      #:height 50px
+      #:display |block|
+      #:text-align |center|
+      [.fa #:line-height 50px]]]
+    [.sidebar-left
+     [.sidebar-left-content
       #:position absolute
       #:bottom 0
-      #:margin-bottom 10px
-      [a
-       #:width 50px
-       #:height 50px
-       #:display |block|
-       #:text-align |center|
-       [.fa #:line-height 50px]]]]
+      #:margin-bottom 10px]]
     [.sidebar-right
      #:right 0
      [.sidebar-right-content
-      #:top 0
-      #:margin-top 20
-      #:position absolute
-      [a
-       #:width 50px
-       #:height 50px
-       #:display |block|
-       #:text-align |center|
-       [.fa #:line-height 50px]]]]
+      #:bottom 0
+      #:height 110px
+      #:position absolute]]
     [.spacer #:height 80px]
     [.footer
      #:position absolute
