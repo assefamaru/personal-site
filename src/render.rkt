@@ -126,7 +126,7 @@
                       "Home")))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
-                   (a ((href "#")
+                   (a ((href "/blog")
                        (class "hdr-a hdr-a2"))
                       "Blog"))
                (li ((class "hdr-li"))
