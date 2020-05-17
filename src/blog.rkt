@@ -8,6 +8,8 @@
          review-post)
 
 (define (list-posts request)
+
+(define (list-posts request)
   (render-page request
                #:title "Blog"
                fake-blog))
