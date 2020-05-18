@@ -15,10 +15,7 @@
       (call/dotenv "DBHOST")))
   
 
-(define port
-  (if (getenv "PORT")
-      (string->number (getenv "PORT"))
-      (string->number (call/dotenv "DBPORT"))))
+(define port 3306)
 
 (define database
   (if (getenv "DBNAME")
