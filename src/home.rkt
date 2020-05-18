@@ -6,7 +6,7 @@
 
 (provide root-path)
 
-;; Home page.
+;; Handler for the root "/" home path.
 (define (root-path request)
   (render-page request hero))
 

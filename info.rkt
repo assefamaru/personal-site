@@ -3,4 +3,4 @@
 (define collection "personal-site")
 
 (define deps
-  '("css-expr"))
+  '("css-expr" "dotenv"))

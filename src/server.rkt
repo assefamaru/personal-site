@@ -1,7 +1,6 @@
 #lang racket/base
 
 (require web-server/servlet-env
-         "db.rkt"
          "routes.rkt")
 
 ;; start : request? -> doesn't return
@@ -10,12 +9,19 @@
 (define (start request)
   (route request))
 
+;; Set port either from environment,
+;; or port=3000.
+(define port
+  (if (getenv "PORT")
+      (string->number (getenv "PORT"))
+      3000))
+
 ;; Set up and start server instance.
 (serve/servlet start
                ; use serve/servlet in a startup script
                ; instead of opening a browser
                ; - set to #t in production
-               #:command-line? #f
+               #:command-line? #t
                ; set to #f and accept connections to
                ; all listening machines' addresses
                #:listen-ip #f

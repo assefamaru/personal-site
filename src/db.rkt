@@ -1,27 +1,39 @@
 #lang racket/base
 
-(require db)
+(require db
+         dotenv)
 
-(provide port db-conn)
+(provide db-conn)
+
+(define (call/dotenv var)
+  (parameterize ([current-environment-variables (dotenv-read)])
+    (getenv var)))
 
 (define server
-  (if (getenv "SERVER")
-      (getenv "SERVER")
-      "localhost"))
+  (if (getenv "DBHOST")
+      (getenv "DBHOST")
+      (call/dotenv "DBHOST")))
+  
 
 (define port
   (if (getenv "PORT")
       (string->number (getenv "PORT"))
-      3000))
+      (string->number (call/dotenv "DBPORT"))))
 
 (define database
-  (getenv "DATABASE"))
+  (if (getenv "DBNAME")
+      (getenv "DBNAME")
+      (call/dotenv "DBNAME")))
 
 (define user
-  (getenv "USER"))
+  (if (getenv "DBUSER")
+      (getenv "DBUSER")
+      (call/dotenv "DBUSER")))
 
 (define password
-  (getenv "PASSWORD"))
+  (if (getenv "DBPASS")
+      (getenv "DBPASS")
+      (call/dotenv "DBPASS")))
 
 ;; Create connections on demand
 ;; in a connection pool.

@@ -62,7 +62,7 @@
 ;; Produces an error component to be displayed
 ;; on the web when something has gone wrong.
 (define (error/xexpr message)
-  `(div ((class "error"))
+  `(div ((class "notifs"))
         (h1 (strong "Oops!"))
         (p ,message)
         (p "Go back to " (a ((href "/")) "home page") ".")))
