@@ -5,32 +5,32 @@
 
 (provide db-conn)
 
-(define (call/dotenv var)
-  (parameterize ([current-environment-variables (dotenv-read)])
+;; Get environment variable 'var' from the
+;; dotenv file specified by 'path'.
+(define (call/dotenv var [path "../.env"])
+  (define env (dotenv-read path))
+  (parameterize ([current-environment-variables env])
     (getenv var)))
 
-(define server
-  (if (getenv "DBHOST")
-      (getenv "DBHOST")
-      (call/dotenv "DBHOST")))
-  
+;; MySQL server host.
+(define server (if (getenv "DBHOST")
+                   (getenv "DBHOST")
+                   "localhost"))
 
-(define port 3306)
+;; MySQL database.
+(define database (if (getenv "DBNAME")
+                     (getenv "DBNAME")
+                     (call/dotenv "DBNAME")))
 
-(define database
-  (if (getenv "DBNAME")
-      (getenv "DBNAME")
-      (call/dotenv "DBNAME")))
+;; MySQL user.
+(define user (if (getenv "DBUSER")
+                 (getenv "DBUSER")
+                 (call/dotenv "DBUSER")))
 
-(define user
-  (if (getenv "DBUSER")
-      (getenv "DBUSER")
-      (call/dotenv "DBUSER")))
-
-(define password
-  (if (getenv "DBPASS")
-      (getenv "DBPASS")
-      (call/dotenv "DBPASS")))
+;; MySQL password.
+(define password (if (getenv "DBPASS")
+                     (getenv "DBPASS")
+                     (call/dotenv "DBPASS")))
 
 ;; Create connections on demand
 ;; in a connection pool.
@@ -39,7 +39,7 @@
    (connection-pool
     (lambda ()
       (mysql-connect #:server server
-                     #:port port
+                     #:port 3306
                      #:database database
                      #:user user
                      #:password password)))))
