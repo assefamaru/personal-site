@@ -1,1 +1,1 @@
-web: racket -l personal-site/src/server
+web: racket -l alexandermaru/src/server
