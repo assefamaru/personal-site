@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require "render.rkt"
-         "utils.rkt"
-         web-server/servlet)
+(require web-server/servlet
+         "internals.rkt"
+         "render.rkt")
 
 (provide root-path)
 

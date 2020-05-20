@@ -1,8 +1,8 @@
 #lang racket/base
 
 (require web-server/servlet
-         "themes.rkt"
-         "utils.rkt")
+         "internals.rkt"
+         "themes.rkt")
 
 (provide render-page)
 

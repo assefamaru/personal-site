@@ -1,6 +1,7 @@
 #lang info
 
-(define collection "personal-site")
-
-(define deps
-  '("css-expr" "dotenv"))
+(define collection "alexandermaru")
+(define deps '("css-expr"
+               "dotenv"))
+(define pkg-desc "My personal site")
+(define pkg-authors '(assefamaru))

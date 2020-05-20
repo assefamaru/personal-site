@@ -6,7 +6,8 @@
 
 ;; string-clean: string? -> string?
 ;; Consumes a string and produces the same string
-;; without any newlines '\n'.
+;; without any newlines '\n', and extra whitespaces
+;; trimmed.
 (define (string-clean str)
-  (apply string-append
-         (string-split str "\n")))
+  (string-join
+   (map string-trim (string-split str "\n"))))

@@ -3,18 +3,19 @@
 (require web-server/servlet-env
          "routes.rkt")
 
+;; If port is set by environment,
+;; use that value. Otherwise, use
+;; port=3000 as default.
+(define port
+  (if (getenv "PORT")
+      (string->number (getenv "PORT"))
+      3000))
+
 ;; start : request? -> doesn't return
 ;; Consumes a request and produces a page
 ;; that displays all of the web content.
 (define (start request)
   (route request))
-
-;; Set port either from environment,
-;; or port=3000.
-(define port
-  (if (getenv "PORT")
-      (string->number (getenv "PORT"))
-      3000))
 
 ;; Set up and start server instance.
 (serve/servlet start
