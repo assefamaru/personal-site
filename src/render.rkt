@@ -126,7 +126,7 @@
                       "Home")))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
-                   (a ((href "/blog")
+                   (a ((href "#")
                        (class "hdr-a hdr-a2"))
                       "Blog"))
                (li ((class "hdr-li"))
@@ -177,7 +177,7 @@
                  (title "Switch theme"))
                 (i ((class "fa fa-adjust")
                     (area-hidden "true"))))
-             (a ((href "/login"))
+             (a ((href "#"))
                 (i ((class "fa fa-lock")
                     (area-hidden "true")))))))
 
