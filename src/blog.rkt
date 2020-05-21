@@ -18,3 +18,8 @@
 ;; Handler for the /blog/{category}/{id}/{title} path.
 (define (review-post request category id title)
   void)
+
+;; ===============================================
+
+(define (blog/xexpr request)
+  void)
