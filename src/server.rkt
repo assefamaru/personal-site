@@ -11,7 +11,7 @@
       (string->number (getenv "PORT"))
       3000))
 
-;; start : request? -> doesn't return
+;; start : request? -> response
 ;; Consumes a request and produces a page
 ;; that displays all of the web content.
 (define (start request)

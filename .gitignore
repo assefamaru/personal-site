@@ -1,4 +1,4 @@
 src/compiled/
 *.rkt~
-src/*.rkt~
+*/*.rkt~
 .env

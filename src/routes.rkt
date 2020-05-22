@@ -2,7 +2,6 @@
 
 (require web-server/dispatch
          "notifications.rkt"
-         "internals.rkt"
          "auth.rkt"
          "home.rkt"
          "blog.rkt")
@@ -16,4 +15,11 @@
    [("blog") blog-path]
    [("blog" (string-arg)) list-posts]
    [("blog" (string-arg) (integer-arg) (string-arg)) review-post]
+
+   [("login") login-path]
+   [("auth") auth-dispatch]
+   [("auth" (string-arg)) auth-dispatch]
+   [("auth" (string-arg) (string-arg)) auth-dispatch]
+   [("auth" (string-arg) (integer-arg)) auth-dispatch]
+   [("auth" (string-arg) (string-arg) (string-arg)) auth-dispatch]
    [else error/404]))

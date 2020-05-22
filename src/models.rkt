@@ -50,8 +50,8 @@
      db
      "CREATE TABLE drafts (
         id          INT AUTO_INCREMENT PRIMARY KEY,
-        title       VARCHAR(255) NOT NULL,
-        category    VARCHAR(255) NOT NULL,
+        title       VARCHAR(255),
+        category    VARCHAR(255),
         topics      VARCHAR(255),
         description VARCHAR(255),
         body        TEXT,
@@ -97,7 +97,7 @@
 ;; db-drop! : db-conn string? -> void
 ;; Drops a single 'table' if present in database.
 (define (db-drop! db table)
-  (query-exec db "DROP TABLE IF EXISTS ?;" table))
+  (query-exec db (string-append "DROP TABLE IF EXISTS " table ";")))
 
 ;; db-destroy! : db-conn -> void
 ;; Drops all tables present in database.
@@ -105,6 +105,7 @@
   (db-drop! db "posts")
   (db-drop! db "drafts")
   (db-drop! db "comments")
+  (db-drop! db "categories")
   (db-drop! db "subscriptions"))
 
 ;; Inserts =====================================================================
@@ -313,10 +314,10 @@
    "SELECT * FROM posts WHERE id = ? AND title = ? AND category = ?;"
    id title category))
 
-;; db-select-draft : db-conn integer? string? string? -> vector?
-;; Retrieves a single draft record using its id, title, and category.
-(define (db-select-draft db id title category)
+;; db-select-draft : db-conn integer? -> vector?
+;; Retrieves a single draft record using its id.
+(define (db-select-draft db id)
   (query-row
    db
-   "SELECT * FROM drafts WHERE id = ? AND title = ? AND category = ?;"
-   id title category))
+   "SELECT * FROM drafts WHERE id = ?;"
+   id))
