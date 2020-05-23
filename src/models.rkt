@@ -42,8 +42,8 @@
         topics      VARCHAR(255),
         description VARCHAR(255) NOT NULL,
         body        TEXT         NOT NULL,
-        created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       ) AUTO_INCREMENT=314159;"))
   (unless (table-exists? db "drafts")
     (query-exec
@@ -55,8 +55,8 @@
         topics      VARCHAR(255),
         description VARCHAR(255),
         body        TEXT,
-        created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       ) AUTO_INCREMENT=314159;"))
   (unless (table-exists? db "comments")
     (query-exec
@@ -68,8 +68,8 @@
         last_name  VARCHAR(100) NOT NULL,
         email      VARCHAR(255),
         content    TEXT         NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         INDEX (post_id)
       );"))
   (unless (table-exists? db "categories")
@@ -78,8 +78,8 @@
      "CREATE TABLE categories (
         id         INT AUTO_INCREMENT PRIMARY KEY,
         category   VARCHAR(255)         NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX unique_category (category)
       );"))
   (unless (table-exists? db "subscriptions")
@@ -89,8 +89,8 @@
         id         INT AUTO_INCREMENT PRIMARY KEY,
         email      VARCHAR(255)         NOT NULL,
         active     TINYINT(1) DEFAULT 1 NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX unique_email (email)
       );")))
 

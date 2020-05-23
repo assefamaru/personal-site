@@ -1,7 +1,7 @@
 #lang racket/base
 
 (require web-server/dispatch
-         "notifications.rkt"
+         "errors.rkt"
          "auth.rkt"
          "home.rkt"
          "blog.rkt")

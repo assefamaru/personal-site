@@ -1,11 +1,11 @@
-#lang racket
+#lang racket/base
 
 (require web-server/formlets/stateless
          web-server/servlet
          "render.rkt"
          "models.rkt"
          "db.rkt"
-         "blog.rkt")
+         "errors.rkt")
 
 (provide forms/login
          forms/create-post)
@@ -44,11 +44,6 @@
 ;; Handlers ================================================
 
 (define (forms/create-post request)
-  (send/formlet new-post-formlet
-                #:wrap render-page))
-
-
-(define (f request)
   (define (response-generator embed/url)
     (render-page request
                  (lambda ()
@@ -61,8 +56,8 @@
     (define-values (title category topics description body)
       (formlet-process new-post-formlet request))
     (db-insert-post! db-conn title category topics description body)
-    (redirect/get))
-  (send/formlet response-generator))
+    (redirect-to "http://localhost:3000/blog"))
+  (send/suspend/dispatch response-generator))
 
 
 (define (forms/login request)
