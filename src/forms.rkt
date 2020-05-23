@@ -56,7 +56,7 @@
     (define-values (title category topics description body)
       (formlet-process new-post-formlet request))
     (db-insert-post! db-conn title category topics description body)
-    (redirect-to "http://localhost:3000/blog"))
+    (success/200 request))
   (send/suspend/dispatch response-generator))
 
 
