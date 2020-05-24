@@ -291,7 +291,7 @@
        (string-append "SELECT id,title,category,topics,description,updated_at
                        FROM posts WHERE category = "
                       (car categories)
-                      " ORDER BY created_at DESC LIMIT 5 UNION "
+                      " ORDER BY updated_at DESC LIMIT 5 UNION "
                       (stmt (cdr categories))))))
   (query-rows
    db

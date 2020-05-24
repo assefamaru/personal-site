@@ -20,28 +20,45 @@
   (formlet
    (#%# ,((to-string
            (required
-            (text-input
-             #:attributes '((class "form-text")))))
+            (textarea-input
+             #:rows 1
+             #:attributes '((class "form-text")
+                            (placeholder "Title")
+                            (autocomplete "off")))))
           . => . title)
         ,((to-string
            (required
-            (text-input
-             #:attributes '((class "form-text")))))
+            (textarea-input
+             #:rows 1
+             #:attributes '((class "form-text")
+                            (placeholder "Category")
+                            (autocomplete "off")))))
           . => . category)
         ,((to-string
            (required
-            (text-input
-             #:attributes '((class "form-text")))))
+            (textarea-input
+             #:rows 1
+             #:attributes '((class "form-text")
+                            (placeholder "Topics")
+                            (autocomplete "off")))))
           . => . topics)
         ,((to-string
            (required
-            (text-input
-             #:attributes '((class "form-text")))))
+            (textarea-input
+             #:rows 10
+             #:cols 10
+             #:attributes '((class "form-text")
+                            (placeholder "Description")
+                            (autocomplete "off")))))
           . => . description)
         ,((to-string
            (required
-            (text-input
-             #:attributes '((class "form-text")))))
+            (textarea-input
+             #:rows 50
+             #:cols 10
+             #:attributes '((class "form-text")
+                            (placeholder "Body")
+                            (autocomplete "off")))))
           . => . body))
    (values title category topics description body)))
 

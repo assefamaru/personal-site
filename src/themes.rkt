@@ -19,7 +19,12 @@
      [a #:color |#FFFFFF|]]
     [.sidebar-right
      [a #:color |#FFFFFF|]]
-    [.hero-h1 #:color |#FFFFFF|])))
+    [.hero-h1 #:color |#FFFFFF|]
+    [.blog-form
+     [.form-text
+      #:color |#BAC2C9|
+      #:border |1px solid #E91E63|
+      #:background-color |#22222A|]])))
 
 ;; Light theme styles.
 (define light-theme
@@ -127,6 +132,22 @@
      [.hero-h1
       #:font-size 80px
       #:margin 0]]
+    [.blog-form
+     #:width 70vw
+     #:max-width 1000px
+     #:margin-top 100px
+     #:margin-left auto
+     #:margin-right auto
+     [.form-text
+      #:display block
+      #:width 100%
+      #:margin-bottom 20px
+      #:line-height 20px
+      #:padding 10px
+      #:font-size 16px
+      #:font-weight 600
+      #:font-family |"Source Sans Pro"|
+      #:resize none]]
     [@media (and screen (#:max-width 700px))
             [.vline2 #:display none]
             [.vline4 #:display none]
@@ -145,4 +166,6 @@
              #:margin-top 20vh]
             [.hero
              #:left 65px
+             #:margin-top 18vh]
+            [.blog-form
              #:margin-top 18vh]])))
