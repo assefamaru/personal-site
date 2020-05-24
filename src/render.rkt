@@ -1,7 +1,7 @@
 #lang racket/base
 
-(require web-server/servlet
-         "internals.rkt"
+(require web-server/http/xexpr
+         racket/string
          "themes.rkt")
 
 (provide render-page)
@@ -193,3 +193,11 @@
                "@assefamaru")
             ".")
            (script "document.getElementById(\"year\").innerHTML = new Date().getFullYear();")))
+
+;; string-clean: string? -> string?
+;; Consumes a string and produces the same string
+;; without any newlines '\n', and extra whitespaces
+;; trimmed.
+(define (string-clean str)
+  (string-join
+   (map string-trim (string-split str "\n"))))

@@ -1,7 +1,6 @@
 #lang racket/base
 
-(require racket/vector
-         web-server/servlet)
+(require "render.rkt")
 
 (provide blog-path
          list-posts
@@ -9,7 +8,9 @@
 
 ;; Handler for the /blog path.
 (define (blog-path request)
-  void)
+  (render-page request
+               (lambda ()
+                 `(p "Blog page"))))
 
 ;; Handler for the /blog/{category} path.
 (define (list-posts request category)
@@ -17,9 +18,4 @@
 
 ;; Handler for the /blog/{category}/{id}/{title} path.
 (define (review-post request category id title)
-  void)
-
-;; ===============================================
-
-(define (blog/xexpr request)
   void)

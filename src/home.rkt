@@ -1,13 +1,12 @@
 #lang racket/base
 
-(require web-server/servlet
-         "internals.rkt"
-         "render.rkt")
+(require "render.rkt"
+         "private.rkt")
 
-(provide root-path)
+(provide home-path)
 
 ;; Handler for the root "/" home path.
-(define (root-path request)
+(define (home-path request)
   (render-page request hero))
 
 ;; Hero section (home page).

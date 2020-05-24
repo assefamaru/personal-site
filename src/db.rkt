@@ -14,26 +14,18 @@
     (getenv var)))
 
 ;; find-env : string? -> string?
-;; Finds the value of the environment
-;; variable 'var', either from the local
-;; environment, or from the dotenv file
-;; specified in call/dotenv.
+;; Finds the value of the environment variable
+;; 'var', either from local or from dotenv.
 (define (find-env var)
   (if (getenv var)
       (getenv var)
       (call/dotenv var)))
 
-;; MySQL server host.
-(define server (find-env "DBHOST"))
-
-;; MySQL database name.
-(define database (find-env "DBNAME"))
-
-;; MySQL user credential.
+;; MySQL credentials.
 (define user (find-env "DBUSER"))
-
-;; MySQL password credential.
 (define password (find-env "DBPASS"))
+(define database (find-env "DBNAME"))
+(define server (find-env "DBHOST"))
 
 ;; Create connections on demand
 ;; in a connection pool.

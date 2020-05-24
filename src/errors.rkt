@@ -1,17 +1,28 @@
 #lang racket/base
 
-(require web-server/servlet
+(require net/url
+         web-server/http/request-structs
          "render.rkt")
 
 (provide success/200
-         error/404)
+         error/404
+         error/500)
+
+(define (error/500 request message)
+  (render-page request
+               #:code 500
+               #:message "Internal Server Error"
+               (lambda ()
+                 `(div ((class "errors"))
+                       (h1 (strong "Oops!"))
+                       (p ,message)
+                       (p "Go back to " (a ((href "/")) "home page") ".")))))
 
 (define (success/200 request)
   (render-page request
                #:code 200
                #:message "Success"
-               #:params request
-               (lambda (req)
+               (lambda ()
                  (success/xexpr "Your command has successfully finished running."))))
 
 (define (error/404 request)
@@ -27,7 +38,7 @@
                       " was not found on this server.")))))
 
 (define (success/xexpr message)
-  `(div ((class "notification"))
+  `(div ((class "errors"))
         (h1 (strong "Yayy!"))
         (p ,message)
         (p "Go back to " (a ((href "/")) "home page") ".")))
@@ -36,7 +47,7 @@
 ;; Produces an error component to be displayed
 ;; on the web when something has gone wrong.
 (define (error/xexpr message)
-  `(div ((class "notification"))
+  `(div ((class "errors"))
         (h1 (strong "Oops!"))
         (p ,message)
         (p "Go back to " (a ((href "/")) "home page") ".")))

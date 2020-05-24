@@ -109,7 +109,7 @@
      #:margin-bottom 35px
      #:left 76%
      #:font-weight bold]
-    [.notification
+    [.errors
      #:max-width 600px
      #:position absolute
      #:margin-top 28vh
@@ -140,7 +140,7 @@
              #:left |53% !important|
              #:margin-top 90px]
             [.footer #:left |65px !important|]
-            [.notification
+            [.errors
              #:left 65px
              #:margin-top 20vh]
             [.hero
