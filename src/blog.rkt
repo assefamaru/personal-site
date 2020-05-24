@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require "render.rkt")
+(require "render.rkt"
+         "models.rkt")
 
 (provide blog-path
          list-posts
