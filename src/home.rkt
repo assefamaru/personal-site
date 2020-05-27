@@ -17,12 +17,11 @@
             (p ((class "hero-p"))
                "I'm "
                (strong "Alexander Maru")
-               ", a software developer in Waterloo, Canada.")
+               ", a student, programmer, and aspiring mathematician.")
             (p ((class "hero-p"))
-               ,(string-clean "I currently study mathematics and computer science
-                               at University of Waterloo, and do freelance work on the side.
-                               I enjoy working on side projects, and contributing to open-source
-                               software in my spare time."))
+               ,(string-clean "I currently study mathematics at University of Waterloo, and do
+                               freelance work on the side. I enjoy working on side projects,
+                               and contributing to open-source software in my spare time."))
             (p ((class "hero-p"))
                ,(string-clean "I'm interested in learning about, and working on a wide range of
                                fields, including artificial intelligence, machine learning,

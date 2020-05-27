@@ -32,9 +32,11 @@
    (css-expr
     [body
      #:color |#616161|
-     #:background-color |#F7F7F7|
+     #:background-color |#FFFFFF|
      [a #:color |#E91E63|]]
     [.vline #:border-left |1px solid #E0E0E0|]
+    [.vline3 #:display none]
+    [.vline4 #:display none]
     [.hdr-a #:color |#616161|]
     [.sidebar
      [a #:color |#616161|]]
@@ -105,7 +107,7 @@
      #:right 0
      [.sidebar-right-content
       #:bottom 0
-      #:height 110px
+      #:height 60px
       #:position absolute]]
     [.spacer #:height 80px]
     [.footer

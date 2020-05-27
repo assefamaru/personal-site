@@ -93,9 +93,9 @@
            (content "@assefamaru")))
     (link ((rel "stylesheet")
            (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,400i,600,700,900")))
-    (style ,(if (not theme)
-                dark-theme
-                light-theme))
+    (style ,(if (equal? theme "light")
+                light-theme
+                dark-theme))
     (style ,non-theme)
     (script ((src "https://use.fontawesome.com/78853d9834.js")))
     (script ((async "")
@@ -126,7 +126,7 @@
                       "Home")))
            (ul ((class "hdr-ul"))
                (li ((class "hdr-li"))
-                   (a ((href "#")
+                   (a ((href "/blog")
                        (class "hdr-a hdr-a2"))
                       "Blog"))
                (li ((class "hdr-li"))
@@ -173,11 +173,7 @@
 (define sidebar-right
   `(div ((class "sidebar sidebar-right"))
         (div ((class "sidebar-right-content"))
-             (a ((href "#")
-                 (title "Switch theme"))
-                (i ((class "fa fa-adjust")
-                    (area-hidden "true"))))
-             (a ((href "#"))
+             (a ((href "/login"))
                 (i ((class "fa fa-lock")
                     (area-hidden "true")))))))
 

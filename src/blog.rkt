@@ -12,6 +12,8 @@
 (define (blog-path request)
   (define posts (db-select-partial-posts db-conn))
   (render-page request
+               #:title "Blog"
+               #:theme "light"
                (lambda ()
                  `(p "Blog page"))))
 
