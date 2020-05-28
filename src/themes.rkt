@@ -13,13 +13,15 @@
      #:background-color |#22222A|
      [a #:color |#E91E63|]
      [strong #:color |#FFFFFF|]]
-    [.vline #:border-left |1px solid #353541|]
+    [.vline #:border-left |1px solid #272731|]
     [.hdr-a #:color |#BAC2C9|]
     [.sidebar
      [a #:color |#FFFFFF|]]
     [.sidebar-right
      [a #:color |#FFFFFF|]]
     [.hero-h1 #:color |#FFFFFF|]
+    [.posts-wrapper
+     [a #:color |#BAC2C9|]]
     [.blog-form
      [.form-text
       #:color |#BAC2C9|
@@ -42,6 +44,8 @@
     [.sidebar
      [a #:color |#616161|]]
     [.sidebar-right
+     [a #:color |#616161|]]
+    [.posts-wrapper
      [a #:color |#616161|]])))
 
 ;; Non-theme styles.
@@ -81,11 +85,8 @@
         #:font-weight bold]
        [.hdr-a1 #:left 65px]
        [.hdr-a2 #:left 26%]
-       [.hdr-a3
-        #:left 26%
-        #:margin-top 30px]
-       [.hdr-a4 #:left 51%]
-       [.hdr-a5 #:left 76%]]]]
+       [.hdr-a3 #:left 51%]
+       [.hdr-a4 #:left 76%]]]]
     [.sidebar
      #:width 50px
      #:height 100vh
@@ -106,10 +107,7 @@
       #:margin-bottom 10px]]
     [.sidebar-right
      #:right 0
-     [.sidebar-right-content
-      #:bottom 0
-      #:height 60px
-      #:position absolute]]
+     #:top 5px]
     [.spacer #:height 80px]
     [.footer
      #:position absolute
@@ -127,8 +125,9 @@
       #:font-size 80px
       #:margin 0]]
     [.hero
+     #:width 70%
      #:max-width 600px
-     #:position absolute
+     #:position relative
      #:margin-top 28vh
      #:margin-right 15px
      #:left 26%
@@ -152,25 +151,37 @@
       #:font-family |"Source Sans Pro"|
       #:resize none]]
     [.posts-wrapper
-     #:max-width 800px
+     #:width 800px
+     #:max-width 70%
      #:margin-top 100px
+     #:position relative
      #:left 26%
-     #:position absolute
      [.post-item
-      [div
-       #:color black]]]
+      #:text-decoration none
+      #:display block
+      #:margin-bottom 50px
+      [h3
+       #:color |#FFFFFF|
+       #:font-size 20px
+       #:margin 0]
+      [.post-topic
+       #:color |#E91E63|
+       #:border |1px solid #E91E63|
+       #:margin-top 10px
+       #:display inline-block
+       #:margin-right 5px
+       #:padding |0 3px|]
+      [p #:margin |10px 0 0 0|]]]
     [@media (and screen (#:max-width 700px))
             [.vline2 #:display none]
             [.vline4 #:display none]
             [.hdr-a2 #:left |53% !important|]
-            [.hdr-a3 #:left |53% !important|]
-            [.hdr-a4 #:left |53% !important|]
+            [.hdr-a3
+             #:left |53% !important|
+             #:margin-top 30px]
             [.hdr-a4
              #:left |53% !important|
              #:margin-top 60px]
-            [.hdr-a5
-             #:left |53% !important|
-             #:margin-top 90px]
             [.footer #:left |65px !important|]
             [.errors
              #:left 65px
@@ -182,5 +193,4 @@
              #:margin-top 18vh]
             [.posts-wrapper
              #:left 65px
-             #:margin-top 18vh
-             #:margin-right 50px]])))
+             #:margin-top 18vh]])))

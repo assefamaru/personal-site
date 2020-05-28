@@ -15,24 +15,32 @@
   (render-page
    request
    #:title "Blog"
-   #:theme "light"
+   #:theme "dark"
    #:params posts
    (lambda (posts)
      `(div ((class "posts-wrapper"))
            ,@(map (lambda (post)
-                    `(a ((href ,(string-append
-                                 "/blog/"
-                                 (vector-ref post 3)
-                                 "/"
-                                 (number->string (vector-ref post 0))
-                                 "/"
-                                 (vector-ref post 2)))
+                    (define id (number->string (vector-ref post 0)))
+                    (define title (vector-ref post 1))
+                    (define url-title (vector-ref post 2))
+                    (define category (vector-ref post 3))
+                    (define topics (vector-ref post 4))
+                    (define description (vector-ref post 5))
+                    (define created-at (timestamp->string (vector-ref post 6)))
+                    `(a ((href ,(string-append "/blog/" category "/" id "/" url-title))
                          (class "post-item"))
-                        (div (h3 ,(vector-ref post 1))
-                             (small "category " ,(vector-ref post 3))
-                             (small "topics " ,(vector-ref post 4))
-                             (small "created at " ,(timestamp->string (vector-ref post 6)))
-                             (p ,(vector-ref post 5)))))
+                        (div (h3 ,title)
+                             (small ,created-at)
+                             (small " • " ,category)
+                             (br)
+                             ,(if (equal? topics "")
+                                  `(span)
+                                  `(div
+                                    ,@(map (lambda (topic)
+                                             `(small ((class "post-topic"))
+                                                     ,topic))
+                                           (string-split topics))))
+                             (p ,description "..."))))
                   posts)))))
 
 ;; Handler for the /blog/{category} path.
@@ -47,6 +55,7 @@
    request
    #:title (vector-ref post 1)
    #:desc (string-append (vector-ref post 5) "...")
+   #:theme "dark"
    #:params post
    (lambda (post)
      `(div ((class "blog-post"))

@@ -137,10 +137,6 @@
                (li ((class "hdr-li"))
                    (a ((href "#")
                        (class "hdr-a hdr-a4"))
-                      "About"))
-               (li ((class "hdr-li"))
-                   (a ((href "#")
-                       (class "hdr-a hdr-a5"))
                       "More")))))
 
 ;; sidebar-left: xexpr
