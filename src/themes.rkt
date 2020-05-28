@@ -151,7 +151,7 @@
       #:font-family |"Source Sans Pro"|
       #:resize none]]
     [.posts-wrapper
-     #:width 800px
+     #:width 750px
      #:max-width 70%
      #:margin-top 100px
      #:position relative
@@ -162,16 +162,29 @@
       #:margin-bottom 50px
       [h3
        #:color |#FFFFFF|
-       #:font-size 20px
+       #:font-size 25px
        #:margin 0]
-      [.post-topic
+      [p #:margin |10px 0 0 0|]]]
+    [.post-topic
        #:color |#E91E63|
        #:border |1px solid #E91E63|
        #:margin-top 10px
        #:display inline-block
        #:margin-right 5px
        #:padding |0 3px|]
-      [p #:margin |10px 0 0 0|]]]
+    [.blog-post
+     #:width 750px
+     #:max-width 70%
+     #:margin-top 100px
+     #:position relative
+     #:left 26%
+     [h1
+      #:color |#FFFFFF|
+      #:margin 0]
+     [p
+      #:margin-top 20px
+      #:letter-spacing .5px
+      #:line-height 25px]]
     [@media (and screen (#:max-width 700px))
             [.vline2 #:display none]
             [.vline4 #:display none]
@@ -192,5 +205,8 @@
             [.blog-form
              #:margin-top 18vh]
             [.posts-wrapper
+             #:left 65px
+             #:margin-top 18vh]
+            [.blog-post
              #:left 65px
              #:margin-top 18vh]])))
