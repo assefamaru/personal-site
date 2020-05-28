@@ -35,6 +35,7 @@
      #:background-color |#FFFFFF|
      [a #:color |#E91E63|]]
     [.vline #:border-left |1px solid #E0E0E0|]
+    [.vline2 #:display none]
     [.vline3 #:display none]
     [.vline4 #:display none]
     [.hdr-a #:color |#616161|]
@@ -150,6 +151,14 @@
       #:font-weight 600
       #:font-family |"Source Sans Pro"|
       #:resize none]]
+    [.posts-wrapper
+     #:max-width 800px
+     #:margin-top 100px
+     #:left 26%
+     #:position absolute
+     [.post-item
+      [div
+       #:color black]]]
     [@media (and screen (#:max-width 700px))
             [.vline2 #:display none]
             [.vline4 #:display none]
@@ -170,4 +179,8 @@
              #:left 65px
              #:margin-top 18vh]
             [.blog-form
-             #:margin-top 18vh]])))
+             #:margin-top 18vh]
+            [.posts-wrapper
+             #:left 65px
+             #:margin-top 18vh
+             #:margin-right 50px]])))

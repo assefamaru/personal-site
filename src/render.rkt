@@ -100,10 +100,11 @@
     (script ((src "https://use.fontawesome.com/78853d9834.js")))
     (script ((async "")
              (src "https://www.googletagmanager.com/gtag/js?id=UA-106749390-2")))
-    (script ,(string-clean "window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', 'UA-106749390-2');"))))
+    (script ,(string-normalize-spaces
+              "window.dataLayer = window.dataLayer || [];
+               function gtag(){dataLayer.push(arguments);}
+               gtag('js', new Date());
+               gtag('config', 'UA-106749390-2');"))))
 
 ;; (make-title (or string? #f) boolean? integer? string?) -> string?
 ;; Produces a dynamic title for each web page.
@@ -189,11 +190,3 @@
                "@assefamaru")
             ".")
            (script "document.getElementById(\"year\").innerHTML = new Date().getFullYear();")))
-
-;; string-clean: string? -> string?
-;; Consumes a string and produces the same string
-;; without any newlines '\n', and extra whitespaces
-;; trimmed.
-(define (string-clean str)
-  (string-join
-   (map string-trim (string-split str "\n"))))

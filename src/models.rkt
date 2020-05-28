@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require db)
+(require db
+         racket/string)
 
 (provide db-create!
          db-drop!
@@ -38,6 +39,7 @@
      "CREATE TABLE posts (
         id          INT AUTO_INCREMENT PRIMARY KEY,
         title       VARCHAR(255) NOT NULL,
+        url_title   VARCHAR(255) NOT NULL,
         category    VARCHAR(255) NOT NULL,
         topics      VARCHAR(255),
         description VARCHAR(255) NOT NULL,
@@ -51,6 +53,7 @@
      "CREATE TABLE drafts (
         id          INT AUTO_INCREMENT PRIMARY KEY,
         title       VARCHAR(255),
+        url_title   VARCHAR(255),
         category    VARCHAR(255),
         topics      VARCHAR(255),
         description VARCHAR(255),
@@ -110,21 +113,25 @@
 
 ;; Inserts =====================================================================
 
-;; db-insert-post! : db-conn string? string? string? string? string? -> void
+;; db-insert-post! : db-conn string? string? string? string? -> void
 ;; Consumes a db-conn and a post, and adds the post to the database.
-(define (db-insert-post! db title category topics description body)
+(define (db-insert-post! db title category topics body)
+  (define url-title (string-join (string-split (string-downcase title)) "-"))
+  (define description (substring body 0 255))
   (query-exec
    db
-   "INSERT INTO posts (title,category,topics,description,body) VALUES(?,?,?,?,?);"
-   title category topics description body))
+   "INSERT INTO posts (title,url_title,category,topics,description,body) VALUES(?,?,?,?,?,?);"
+   title url-title category topics description body))
 
-;; db-insert-draft! : db-conn string? string? string? string? string? -> void
+;; db-insert-draft! : db-conn string? string? string? string? -> void
 ;; Consumes a db-conn and a draft, and adds the draft to the database.
-(define (db-insert-draft! db title category topics description body)
+(define (db-insert-draft! db title category topics body)
+  (define url-title (string-join (string-split (string-downcase title)) "-"))
+  (define description (substring body 0 255))
   (query-exec
    db
-   "INSERT INTO drafts (title,category,topics,description,body) VALUES(?,?,?,?,?);"
-   title category topics description body))
+   "INSERT INTO drafts (title,url_title,category,topics,description,body) VALUES(?,?,?,?,?,?);"
+   title url-title category topics description body))
 
 ;; db-insert-comment! : db-conn integer? string? string? string? string? -> void
 ;; Consumes a db-conn and a comment, and adds the comment to the database.
@@ -153,21 +160,25 @@
 
 ;; Updates =====================================================================
 
-;; db-update-post! : db-conn integer? string? string? string? string? string? -> void
+;; db-update-post! : db-conn integer? string? string? string? string? -> void
 ;; Updates the different sections of a post after an edit is made.
-(define (db-update-post! db id title category topics description body)
+(define (db-update-post! db id title category topics body)
+  (define url-title (string-join (string-split (string-downcase title)) "-"))
+  (define description (substring body 0 255))
   (query-exec
    db
-   "UPDATE posts SET title = ?, category = ?, topics = ?, description = ?, body = ? WHERE id = ?;"
-   title category topics description body id))
+   "UPDATE posts SET title = ?, url_title = ?, category = ?, topics = ?, description = ?, body = ? WHERE id = ?;"
+   title url-title category topics description body id))
 
-;; db-update-draft! : db-conn integer string? string? string? string? string? -> void
+;; db-update-draft! : db-conn integer string? string? string? string? -> void
 ;; Updates the different sections of a draft after an edit is made.
-(define (db-update-draft! db id title category topics description body)
+(define (db-update-draft! db id title category topics body)
+  (define url-title (string-join (string-split (string-downcase title)) "-"))
+  (define description (substring body 0 255))
   (query-exec
    db
-   "UPDATE drafts SET title = ?, category = ?, topics = ?, description = ?, body = ? WHERE id = ?;"
-   title category topics description body id))
+   "UPDATE drafts SET title = ?, url_title = ?, category = ?, topics = ?, description = ?, body = ? WHERE id = ?;"
+   title url-title category topics description body id))
 
 ;; db-update-category! : db-conn integer? string? -> void
 ;; Updates a category field for the blog.
@@ -234,7 +245,7 @@
 (define (db-select-posts db)
   (query-rows
    db
-   "SELECT id,title,category,topics,description,updated_at
+   "SELECT id,title,url_title,category,topics,description,created_at,updated_at
     FROM posts ORDER BY updated_at DESC;"))
 
 ;; db-select-comments : db-conn integer? -> (listof vector?)
@@ -251,7 +262,7 @@
 (define (db-select-drafts db)
   (query-rows
    db
-   "SELECT id,title,category,topics,description,updated_at
+   "SELECT id,title,url_title,category,topics,description,created_at,updated_at
     FROM drafts ORDER BY updated_at DESC;"))
 
 ;; db-select-categories : db-conn -> list?
@@ -280,15 +291,15 @@
   (define (stmt categories)
     (cond
       ((null? categories)
-       "SELECT id,title,category,topics,description,updated_at
+       "SELECT id,title,url_title,category,topics,description,created_at,updated_at
         FROM posts ORDER BY updated_at DESC LIMIT 10;")
       ((null? (cdr categories))
-       (string-append "SELECT id,title,category,topics,description,updated_at
+       (string-append "SELECT id,title,url_title,category,topics,description,created_at,updated_at
                        FROM posts WHERE category = "
                       (car categories)
                       " ORDER BY updated_at DESC LIMIT 5;"))
       (else
-       (string-append "SELECT id,title,category,topics,description,updated_at
+       (string-append "SELECT id,title,url_title,category,topics,description,created_at,updated_at
                        FROM posts WHERE category = "
                       (car categories)
                       " ORDER BY updated_at DESC LIMIT 5 UNION "
@@ -302,17 +313,17 @@
 (define (db-select-category-posts db category)
   (query-rows
    db
-   "SELECT id,title,topics,description,updated_at
+   "SELECT id,title,url_title,topics,description,created_at,updated_at
     FROM posts WHERE category = ? ORDER BY updated_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
 ;; Retrieves a single post record using its id, title, and category.
-(define (db-select-post db id title category)
+(define (db-select-post db id url-title category)
   (query-row
    db
-   "SELECT * FROM posts WHERE id = ? AND title = ? AND category = ?;"
-   id title category))
+   "SELECT * FROM posts WHERE id = ? AND url_title = ? AND category = ?;"
+   id url-title category))
 
 ;; db-select-draft : db-conn integer? -> vector?
 ;; Retrieves a single draft record using its id.

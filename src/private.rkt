@@ -1,14 +1,12 @@
 #lang racket/base
 
-(require racket/string
-         "db.rkt"
+(require "db.rkt"
          "auth.rkt"
          "models.rkt"
          "forms.rkt"
          "errors.rkt")
 
-(provide private-path
-         string-clean)
+(provide private-path)
 
 ;; private-path : request? (listof string?) -> response
 ;; Acts as a URL dispatcher for all private methods.
@@ -40,11 +38,3 @@
 ;; with active links to each.
 (define (r-path request)
   void)
-
-;; string-clean: string? -> string?
-;; Consumes a string and produces the same string
-;; without any newlines '\n', and extra whitespaces
-;; trimmed.
-(define (string-clean str)
-  (string-join
-   (map string-trim (string-split str "\n"))))

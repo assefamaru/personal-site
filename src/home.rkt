@@ -1,7 +1,7 @@
 #lang racket/base
 
-(require "render.rkt"
-         "private.rkt")
+(require racket/string
+         "render.rkt")
 
 (provide home-path)
 
@@ -19,13 +19,15 @@
                (strong "Alexander Maru")
                ", a student, programmer, and aspiring mathematician.")
             (p ((class "hero-p"))
-               ,(string-clean "I currently study mathematics at University of Waterloo, and do
-                               freelance work on the side. I enjoy working on side projects,
-                               and contributing to open-source software in my spare time."))
+               ,(string-normalize-spaces
+                 "I currently study mathematics at University of Waterloo, and do
+                  freelance work on the side. I enjoy working on side projects,
+                  and contributing to open-source software in my spare time."))
             (p ((class "hero-p"))
-               ,(string-clean "I'm interested in learning about, and working on a wide range of
-                               fields, including artificial intelligence, machine learning,
-                               cryptography, robotics, and pure math, to mention but a few."))
+               ,(string-normalize-spaces
+                 "I'm interested in learning about, and working on a wide range of
+                  fields, including artificial intelligence, machine learning,
+                  cryptography, robotics, and pure math, to mention but a few."))
             (p ((class "hero-p"))
                "You can contact me via email at: "
                (strong "i@alexandermaru.com")

@@ -21,23 +21,23 @@
   (define (response-generator embed/url)
     (render-page
      request
+     #:theme "light"
      (lambda ()
        `(div ((class "blog-form"))
              (form ((action ,(embed/url insert-post-handler)))
                    ,@(formlet-display new-post-formlet)
                    (input ((type "submit"))))))))
   (define (insert-post-handler request)
-    (define-values (title category topics description body)
+    (define-values (title category topics body)
       (formlet-process new-post-formlet request))
     (cond
       ((or (equal? title "")
            (equal? category "")
-           (equal? description "")
            (equal? body ""))
-       (error/500 request "You can't submit the form without filling out all non-empty fields."))
+       (error/500 request "You can't submit the form without filling out all required fields."))
       (else
-       (db-insert-post! db-conn title category topics description body)
-       (redirect-to "/r" see-other))))
+       (db-insert-post! db-conn title category topics body)
+       (redirect-to "/blog" see-other))))
   (send/suspend/dispatch response-generator))
 
 ;; Formlet for new posts.
@@ -70,19 +70,10 @@
         ,((to-string
            (required
             (textarea-input
-             #:rows 10
-             #:cols 10
-             #:attributes '((class "form-text")
-                            (placeholder "Description")
-                            (autocomplete "off")))))
-          . => . description)
-        ,((to-string
-           (required
-            (textarea-input
              #:rows 50
              #:cols 10
              #:attributes '((class "form-text")
                             (placeholder "Body")
                             (autocomplete "off")))))
           . => . body))
-   (values title category topics description body)))
+   (values title category topics body)))
