@@ -2,6 +2,7 @@
 
 (require web-server/servlet
          web-server/servlet-env
+         web-server/safety-limits
          "home.rkt"
          "blog.rkt"
          "forms.rkt"
@@ -22,10 +23,10 @@
    [("blog" (string-arg)) list-posts]
    [("blog" (string-arg) (integer-arg) (string-arg)) review-post]
    [("login") login-path]
-   [("r") private-path]
-   [("r" (string-arg)) private-path]
-   [("r" (string-arg) (string-arg)) private-path]
-   [("r" (string-arg) (integer-arg)) private-path]
+   [("auth") private-path]
+   [("auth" (string-arg)) private-path]
+   [("auth" (string-arg) (string-arg)) private-path]
+   [("auth" (string-arg) (integer-arg)) private-path]
    [else error/404]))
 
 ;; Use PORT environment variable.
@@ -51,4 +52,6 @@
                ; servlet is stateful (for now)
                #:stateless? #f
                ; capture all top level requests
-               #:servlet-regexp #rx"")
+               #:servlet-regexp #rx""
+               ; extend safety limits for large texts
+               #:safety-limits (make-safety-limits #:max-request-line-length +inf.0))

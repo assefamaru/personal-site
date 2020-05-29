@@ -2,6 +2,7 @@
 
 (require "db.rkt"
          "auth.rkt"
+         "render.rkt"
          "models.rkt"
          "forms.rkt"
          "errors.rkt")
@@ -16,7 +17,7 @@
   (define len (length args))
   (cond
     [(= len 0)
-     (r-path request)]
+     (private-dashboard request)]
     [(= len 2)
      (cond
        ((and (equal? (car args) "db")
@@ -33,8 +34,18 @@
        (else (error/404 request)))]
     [else (error/404 request)]))
 
-;; r-path : request? -> response
+;; private-dashboard : request? -> response
 ;; This page lists all private methods allowed in app,
 ;; with active links to each.
-(define (r-path request)
-  void)
+(define (private-dashboard request)
+  (render-page
+   request
+   #:theme "dark"
+   (lambda ()
+     `(div ((class "auth-links-wrapper"))
+           (ul (li (a ((href "/auth/db/create"))
+                      "Create database"))
+               (li (a ((href "/auth/db/drop"))
+                      "Drop database"))
+               (li (a ((href "/auth/posts/create"))
+                      "Create new post")))))))

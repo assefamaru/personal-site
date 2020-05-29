@@ -4,6 +4,7 @@
          web-server/http/redirect
          web-server/servlet/web
          "db.rkt"
+         "auth.rkt"
          "models.rkt"
          "render.rkt"
          "errors.rkt")
@@ -13,7 +14,14 @@
 
 ;; login-path : request? -> response
 (define (login-path request)
-  void)
+  (render-page
+   request
+   #:theme "dark"
+   #:params authenticated?
+   (lambda (authenticated?)
+     (if (equal? authenticated? "yes")
+         (redirect-to "/auth" see-other)
+         `(div (p "Log in"))))))
 
 ;; blog-create-post : request? -> response
 ;; Displays a private web form for creating new posts.
@@ -21,7 +29,7 @@
   (define (response-generator embed/url)
     (render-page
      request
-     #:theme "light"
+     #:theme "dark"
      (lambda ()
        `(div ((class "blog-form"))
              (form ((action ,(embed/url insert-post-handler)))
@@ -70,9 +78,9 @@
         ,((to-string
            (required
             (textarea-input
-             #:rows 50
+             #:rows 30
              #:cols 10
-             #:attributes '((class "form-text")
+             #:attributes '((class "form-text form-text-body")
                             (placeholder "Body")
                             (autocomplete "off")))))
           . => . body))

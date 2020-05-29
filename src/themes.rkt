@@ -24,9 +24,9 @@
      [a #:color |#BAC2C9|]]
     [.blog-form
      [.form-text
-      #:color |#BAC2C9|
-      #:border |1px solid #E91E63|
-      #:background-color |#22222A|]])))
+      #:border-left |1px solid #1de9b6 !important|
+      #:color |#BAC2C9|]]
+    [::placeholder #:color |#BAC2C9|])))
 
 ;; Light theme styles.
 (define light-theme
@@ -135,21 +135,27 @@
       #:font-size 80px
       #:margin 0]]
     [.blog-form
-     #:width 70vw
-     #:max-width 1000px
+     #:width 750px
+     #:max-width 70%
      #:margin-top 100px
-     #:margin-left auto
-     #:margin-right auto
+     #:position relative
+     #:left 26%
      [.form-text
       #:display block
+      #:outline none
       #:width 100%
       #:margin-bottom 20px
-      #:line-height 20px
+      #:line-height 25px
       #:padding 10px
       #:font-size 16px
-      #:font-weight 600
       #:font-family |"Source Sans Pro"|
-      #:resize none]]
+      #:border none
+      #:background transparent
+      #:resize none]
+     [.form-text-body
+      #:resize vertical
+      #:line-height 25px
+      #:letter-spacing .5px]]
     [.posts-wrapper
      #:width 750px
      #:max-width 70%
