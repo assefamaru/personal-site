@@ -1,30 +1,20 @@
 #lang racket/base
 
 (require db
-         dotenv)
+         "utils.rkt")
 
 (provide db-conn)
 
-;; call/dotenv : string? [ string? ] -> string?
-;; Get environment variable 'var' from the
-;; dotenv file specified by 'path'.
-(define (call/dotenv var [path "../.env"])
-  (define env (dotenv-read path))
-  (parameterize ([current-environment-variables env])
-    (getenv var)))
-
-;; find-env : string? -> string?
-;; Finds the value of the environment variable
-;; 'var', either from local or from dotenv.
-(define (find-env var)
-  (if (getenv var)
-      (getenv var)
-      (call/dotenv var)))
-
-;; MySQL credentials.
+;; MySQL user credential
 (define user (find-env "DBUSER"))
+
+;; MySQL password credential
 (define password (find-env "DBPASS"))
+
+;; MySQL database name
 (define database (find-env "DBNAME"))
+
+;; MySQL server host
 (define server (find-env "DBHOST"))
 
 ;; Create connections on demand

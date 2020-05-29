@@ -17,11 +17,11 @@
   (render-page
    request
    #:theme "dark"
-   #:params authenticated?
+   #:params "no"
    (lambda (authenticated?)
      (if (equal? authenticated? "yes")
          (redirect-to "/auth" see-other)
-         `(div (p "Log in"))))))
+         `(div (p ""))))))
 
 ;; blog-create-post : request? -> response
 ;; Displays a private web form for creating new posts.

@@ -2,4 +2,4 @@
 
 (provide authenticated?)
 
-(define authenticated? "no")
+(define authenticated? #f)
