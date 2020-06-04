@@ -19,13 +19,13 @@
   (parameterize ([current-environment-variables env])
     (getenv var)))
 
-;; find-env : string? -> string?
+;; find-env : string? [ string? ] -> string?
 ;; Finds the value of the environment variable
 ;; 'var', either from local or from dotenv.
-(define (find-env var)
+(define (find-env var [path "../.env"])
   (if (getenv var)
       (getenv var)
-      (call/dotenv var)))
+      (call/dotenv var path)))
 
 ;; parse-date : sql-timestamp? -> string?
 ;; Consumes a sql-timestamp and produces a web

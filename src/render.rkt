@@ -28,10 +28,12 @@
                      #:error   [error   #f]
                      #:code    [code    200]
                      #:message [message "OK"]
+                     #:cookies [cookies null]
                      .
                      components)
   (response/xexpr
    #:code code
+   #:cookies cookies
    #:preamble #"<!DOCTYPE html>"
    `(html ,(meta title desc theme error code message)
           (body

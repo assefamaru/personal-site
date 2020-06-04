@@ -7,6 +7,7 @@
 
 (provide blog-path
          list-posts
+         list-drafts
          review-post)
 
 ;; Handler for the /blog path.
@@ -107,3 +108,7 @@
            ,@(map (lambda (x)
                     `(p ,x))
                   (string-split body "\n"))))))
+
+;; Handler for the /auth/drafts path.
+(define (list-drafts request)
+  void)

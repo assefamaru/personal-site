@@ -41,7 +41,7 @@
                ; use serve/servlet in a startup script
                ; instead of opening a browser
                ; - set to #t in production
-               #:command-line? #t
+               #:command-line? #f
                ; set to #f and accept connections to
                ; all listening machines' addresses
                #:listen-ip #f
