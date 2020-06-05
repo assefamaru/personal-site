@@ -33,7 +33,7 @@
                ; Use serve/servlet in a startup script
                ; - #f in development
                ; - #t in production
-               #:command-line? #t
+               #:command-line? #f
                ; Accept connections to all listening
                ; machines' addresses by setting to #f
                #:listen-ip #f

@@ -38,11 +38,11 @@
                  #:text-align center
                  [.fa #:line-height 50px]]]
     [.sidebar-left
-     [.sidebar-left-content #:position absolute
+     [.sidebar-content #:position absolute
                             #:bottom 0
                             #:margin-bottom 10px]]
     [.sidebar-right #:right 0
-                    [.sidebar-right-content #:margin-top 7.5px]]
+                    [.sidebar-content #:margin-top 7.5px]]
     [.content-wrapper #:width |calc(100% - 100px)|
                       #:margin-left 50px
                       #:margin-bottom 50px
