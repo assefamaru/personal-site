@@ -4,7 +4,7 @@
          web-server/dispatch
          "home.rkt"
          "blog.rkt"
-         "errors.rkt")
+         "status.rkt")
 
 ;; start : request? -> response?
 ;; Consumes a request and produces a page
