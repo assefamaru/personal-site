@@ -73,7 +73,7 @@
        (a ((href "/")
            (class "hdr-a1"))
           "Home")
-        (a ((href "/blog")
+        (a ((href "#")
             (class "hdr-a2"))
            "Blog")
         (a ((href "#")
