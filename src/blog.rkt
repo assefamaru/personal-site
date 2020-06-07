@@ -87,7 +87,7 @@
                        (parse/timestamp (vector-ref post 6))))
              `(a ((href ,(string-append "/blog/" category "/" id "/" url-title))
                   (class "post-item"))
-                 (div (h3 ,title)
+                 (div (h1 ,title)
                       (small ,created-at)
                       (small " • " ,category)
                       (br)

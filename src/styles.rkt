@@ -53,7 +53,27 @@
                              #:left |calc(30% - 20px)|
                              [h1 #:font-size 80px
                                  #:margin 0
-                                 #:padding 0]]]
+                                 #:padding 0]]
+                      [.posts-wrapper #:width 100%
+                                      #:max-width 650px
+                                      #:left |calc(30% - 20px)|
+                                      #:position relative
+                                      #:margin-top 50px
+                                      [.post-item #:text-decoration none
+                                                  #:display block
+                                                  #:margin-bottom 50px
+                                                  [h1 #:margin 0
+                                                      #:font-size 22px]
+                                                  [p #:margin |10px 0 0 0|]]]
+                      [.blog-post #:position relative
+                                  #:max-width 650px
+                                  #:left |calc(30% - 20px)|
+                                  #:margin-top 50px
+                                  [h1 #:margin 0]]
+                      [.post-topic #:margin-top 10px
+                                   #:display inline-block
+                                   #:margin-right 5px
+                                   #:padding |0 3px|]]
     [.spacer-y #:height 50px]
     [footer #:position absolute
             #:left 76%
@@ -68,7 +88,9 @@
                              #:margin-top |60px !important|]]
             [.content-wrapper
              [.hero #:left 0
-                    #:margin-top 10vh]]
+                    #:margin-top 10vh]
+             [.posts-wrapper #:left 0]
+             [.blog-post #:left 0]]
             [footer #:left 50px]])))
 
 ;; Dark theme styles.
@@ -84,7 +106,14 @@
     [.sidebar
      [a #:color |#BAC2C9|]]
     [.hero
-     [h1 #:color |#FFFFFF|]])))
+     [h1 #:color |#FFFFFF|]]
+    [.posts-wrapper
+     [.post-item #:color |#BAC2C9|
+                 [h1 #:color |#FFFFFF|]]]
+    [.blog-post
+     [h1 #:color |#FFFFFF|]]
+    [.post-topic #:color |#E91E63|
+                 #:border |1px solid #E91E63|])))
 
 ;; Light theme styles.
 (define light-theme
