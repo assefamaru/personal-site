@@ -291,15 +291,15 @@
   (define (stmt categories)
     (cond
       ((null? categories)
-       "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+       "SELECT id,title,url_title,category,topics,description,created_at
         FROM posts ORDER BY updated_at DESC LIMIT 10;")
       ((null? (cdr categories))
-       (string-append "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+       (string-append "SELECT id,title,url_title,category,topics,description,created_at
                        FROM posts WHERE category = "
                       (car categories)
                       " ORDER BY updated_at DESC LIMIT 5;"))
       (else
-       (string-append "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+       (string-append "SELECT id,title,url_title,category,topics,description,created_at
                        FROM posts WHERE category = "
                       (car categories)
                       " ORDER BY updated_at DESC LIMIT 5 UNION "
@@ -313,14 +313,14 @@
 (define (db-select-category-posts db category)
   (query-rows
    db
-   "SELECT id,title,url_title,topics,description,created_at,updated_at
+   "SELECT id,title,url_title,category,topics,description,created_at
     FROM posts WHERE category = ? ORDER BY updated_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
 ;; Retrieves a single post record using its id, title, and category.
 (define (db-select-post db id url-title category)
-  (query-row
+  (query-maybe-row
    db
    "SELECT * FROM posts WHERE id = ? AND url_title = ? AND category = ?;"
    id url-title category))
@@ -328,7 +328,7 @@
 ;; db-select-draft : db-conn integer? -> vector?
 ;; Retrieves a single draft record using its id.
 (define (db-select-draft db id)
-  (query-row
+  (query-maybe-row
    db
    "SELECT * FROM drafts WHERE id = ?;"
    id))

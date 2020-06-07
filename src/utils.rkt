@@ -9,7 +9,8 @@
          parse/timestamp
          count/word
          count/char
-         reading-time)
+         reading-time
+         string-split)
 
 ;; call/getenv : string? -> string?
 ;; Get the environment variable 'var'
