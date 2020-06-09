@@ -73,7 +73,36 @@
                       [.post-topic #:margin-top 10px
                                    #:display inline-block
                                    #:margin-right 5px
-                                   #:padding |0 3px|]]
+                                   #:padding |0 3px|]
+                      [.comments-section #:position relative
+                                         #:width 100%
+                                         #:margin-top 100px
+                                         [form #:width 100%
+                                               [textarea #:display block
+                                                         #:border none
+                                                         #:outline none
+                                                         #:width 100%
+                                                         #:resize vertical
+                                                         #:margin-bottom 10px
+                                                         #:padding |3px 10px|
+                                                         #:background-color transparent
+                                                         #:font-family "Source Sans Pro"
+                                                         #:font-size 16px]
+                                               [input #:background-color transparent
+                                                      #:font-family "Source Sans Pro"
+                                                      #:font-size 16px]]
+                                         [.comments-list #:margin-top 50px
+                                                         [.comment-item #:margin-bottom 50px
+                                                                        [img #:width 35px
+                                                                             #:height 35px
+                                                                             #:border-radius 35px
+                                                                             #:float left]
+                                                                        [h4 #:margin 0
+                                                                            #:margin-left 50px]
+                                                                        [span #:margin 0
+                                                                              #:display block
+                                                                              #:margin-left 50px]
+                                                                        [p #:margin-left 50px]]]]]
     [.spacer-y #:height 50px]
     [footer #:position absolute
             #:left 76%
@@ -113,7 +142,16 @@
     [.blog-post
      [h1 #:color |#FFFFFF|]]
     [.post-topic #:color |#E91E63|
-                 #:border |1px solid #E91E63|])))
+                 #:border |1px solid #E91E63|]
+    [.comments-section
+     [form
+      [textarea #:color |#BAC2C9|
+                #:border-left |2px solid #64FFDA !important|]
+      [::placeholder #:color |#BAC2C9|
+                     #:filter |brightness(80%)|]
+      [input #:background-color transparent
+             #:color |#64FFDA|
+             #:border |1px solid #64FFDA|]]])))
 
 ;; Light theme styles.
 (define light-theme

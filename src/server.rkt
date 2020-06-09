@@ -18,7 +18,11 @@
    [("") home-path]
    [("blog") blog-path]
    [("blog" (string-arg)) list-posts]
-   [("blog" (string-arg) (integer-arg) (string-arg)) review-post]
+   [("blog" (string-arg)
+            (integer-arg)
+            (string-arg))
+    #:method (or "get" "post")
+    review-post]
    [else error/404]))
 
 ;; Retrieve PORT environment variable.
@@ -33,7 +37,7 @@
                ; Use serve/servlet in a startup script
                ; - #f in development
                ; - #t in production
-               #:command-line? #t
+               #:command-line? #f
                ; Accept connections to all listening
                ; machines' addresses by setting to #f
                #:listen-ip #f

@@ -58,8 +58,8 @@
              (content "@assefamaru")))
       (link ((rel "stylesheet")
              (href "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700")))
-      (style ,theme)
       (style ,non-theme)
+      (style ,theme)
       (script ((src "https://use.fontawesome.com/78853d9834.js")))
       (script ((async "")
                (src "https://www.googletagmanager.com/gtag/js?id=UA-106749390-2")))
@@ -73,7 +73,7 @@
        (a ((href "/")
            (class "hdr-a1"))
           "Home")
-        (a ((href "#")
+        (a ((href "/blog")
             (class "hdr-a2"))
            "Blog")
         (a ((href "#")
@@ -134,9 +134,9 @@
 ;; Dynamically generate page title.
 (define (render/title content)
   (cond
-    ((not content) "Alexander Maru")
-    (else
-     (string-append content " | Alexander Maru"))))
+    [(not content) "Alexander Maru"]
+    [else
+     (string-append content " | Alexander Maru")]))
 
 ;; render/description : (or boolean? string?) -> string?
 ;; Dynamically generate page description.
