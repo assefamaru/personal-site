@@ -4,6 +4,7 @@
          web-server/dispatch
          "home.rkt"
          "blog.rkt"
+         "auth.rkt"
          "status.rkt")
 
 ;; start : request? -> response?
@@ -23,6 +24,10 @@
             (string-arg))
     #:method (or "get" "post")
     review-post]
+   [("login")
+    #:method (or "get" "post")
+    login-path]
+   [("dashboard") dashboard-path]
    [else error/404]))
 
 ;; Retrieve PORT environment variable.
@@ -46,6 +51,6 @@
                ; Customize base URL
                #:servlet-path "/"
                ; Run servlet as a stateless module
-               #:stateless? #t
+               #:stateless? #f
                ; Capture all top level requests
                #:servlet-regexp #rx"")

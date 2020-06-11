@@ -54,6 +54,21 @@
                              [h1 #:font-size 80px
                                  #:margin 0
                                  #:padding 0]]
+                      [.login #:width 100%
+                              #:max-width 600px
+                              #:position relative
+                              #:margin-top 15vh
+                              #:left |calc(30% - 20px)|
+                              [form #:width 100%
+                                    [.login-input #:display block
+                                                  #:border none
+                                                  #:outline none
+                                                  #:width 100%
+                                                  #:margin-bottom 30px
+                                                  #:padding |3px 10px|]
+                                    [input #:background-color transparent
+                                           #:font-family "Source Sans Pro"
+                                           #:font-size 16px]]]
                       [.posts-wrapper #:width 100%
                                       #:max-width 650px
                                       #:left |calc(30% - 20px)|
@@ -118,6 +133,7 @@
             [.content-wrapper
              [.hero #:left 0
                     #:margin-top 10vh]
+             [.login #:left 0]
              [.posts-wrapper #:left 0]
              [.blog-post #:left 0]]
             [footer #:left 50px]])))
@@ -136,6 +152,14 @@
      [a #:color |#BAC2C9|]]
     [.hero
      [h1 #:color |#FFFFFF|]]
+    [.login
+     [form
+      [.login-input #:color |#BAC2C9|
+                    #:border-left |2px solid #64FFDA !important|]
+      [::placeholder #:color |#BAC2C9|
+                     #:filter |brightness(80%)|]
+      [.submit #:color |#64FFDA|
+               #:border |1px solid #64FFDA|]]]
     [.posts-wrapper
      [.post-item #:color |#BAC2C9|
                  [h1 #:color |#FFFFFF|]]]

@@ -62,14 +62,15 @@
       (string-append num-str " " str)
       (string-append num-str " " str grammar)))
 
-;; gravatar-url : string? -> string?
+;; gravatar-url : string? [ integer? ] -> string?
 ;; Generates the gravatar image url for an email.
-(define (gravatar-url email)
+(define (gravatar-url email [size 50])
   (string-append
    "//gravatar.com/avatar/"
    (md5 (open-input-string
          (string-downcase email)))
-   "?s=50"))
+   "?s="
+   (number->string size)))
 
 ;; reading-time : string? [ integer? ] -> string?
 ;; Consumes a string and returns the length of time
