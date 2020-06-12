@@ -18,12 +18,14 @@
          db-delete-category!
          db-delete-subscription!
          db-select-posts
+         db-select-drafts
          db-select-comments
          db-select-categories
          db-select-subscriptions
          db-select-partial-posts
          db-select-category-posts
-         db-select-post)
+         db-select-post
+         db-select-draft)
 
 ;; db-create! : db-conn -> void
 ;; Creates database with latest schema.
@@ -205,7 +207,15 @@
   (query-rows
    db
    "SELECT id,title,url_title,category,topics,description,created_at,updated_at
-    FROM posts ORDER BY updated_at DESC;"))
+    FROM posts WHERE draft = 0 ORDER BY updated_at DESC;"))
+
+;; db-select-drafts : db-conn -> (listof vector?)
+;; Selects all the drafts currently in database.
+(define (db-select-drafts db)
+  (query-rows
+   db
+   "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+    FROM posts WHERE draft = 1 ORDER BY updated_at DESC;"))
 
 ;; db-select-comments : db-conn integer? -> (listof vector?)
 ;; Selects all the comments for a particular post.
@@ -237,23 +247,23 @@
 
 ;; db-select-partial-posts : db-conn -> (listof vector?)
 ;; Selects the 5 most recent posts under each category.
-(define (db-select-partial-posts db)
+(define (db-select-partial-posts db [draft 0])
   (define categories (db-select-categories db))
   (define (stmt categories)
     (cond
       [(null? categories)
        "SELECT id,title,url_title,category,topics,description,created_at
-        FROM posts ORDER BY updated_at DESC LIMIT 10;"]
+        FROM posts WHERE draft = 0 ORDER BY updated_at DESC LIMIT 10;"]
       [(null? (cdr categories))
        (string-append "SELECT id,title,url_title,category,topics,description,created_at
                        FROM posts WHERE category = "
                       (car categories)
-                      " ORDER BY updated_at DESC LIMIT 5;")]
+                      " AND draft = 0 ORDER BY updated_at DESC LIMIT 5;")]
       [else
        (string-append "SELECT id,title,url_title,category,topics,description,created_at
                        FROM posts WHERE category = "
                       (car categories)
-                      " ORDER BY updated_at DESC LIMIT 5 UNION "
+                      " AND draft = 0 ORDER BY updated_at DESC LIMIT 5 UNION "
                       (stmt (cdr categories)))]))
   (query-rows
    db
@@ -264,8 +274,8 @@
 (define (db-select-category-posts db category)
   (query-rows
    db
-   "SELECT id,title,url_title,category,topics,description,created_at
-    FROM posts WHERE category = ? ORDER BY updated_at DESC;"
+   "SELECT id,title,url_title,topics,description,created_at
+    FROM posts WHERE category = ? AND draft = 0 ORDER BY updated_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
@@ -275,3 +285,11 @@
    db
    "SELECT * FROM posts WHERE id = ? AND url_title = ? AND category = ?;"
    id url-title category))
+
+;; db-select-post : db-conn integer? -> vector?
+;; Retrieves a single draft record using its id.
+(define (db-select-draft db id)
+  (query-maybe-row
+   db
+   "SELECT * FROM posts WHERE id = ?;"
+   id))

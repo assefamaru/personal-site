@@ -5,6 +5,7 @@
          web-server/http/redirect
          web-server/http/request-structs
          net/url
+         "auth.rkt"
          "db.rkt"
          "model.rkt"
          "render.rkt"
@@ -174,3 +175,22 @@
                                                         `(p ((class "comment-p")) ,x))
                                                       (string-split content "\n"))))
                                        comments)))))))))
+
+;; Handler for the "/dashboard/drafts" path.
+(define (list-drafts request)
+  (if (not (authenticated? request))
+      (redirect-to "/login" see-other)
+      #f)
+  (define drafts (db-select-drafts db-conn))
+  (render/page request
+               (lambda ()
+                 `(div "List drafts"))))
+
+;; Handler for the "/dashboard/drafts/{id}" path.
+(define (edit-post request post-id)
+  (if (not (authenticated? request))
+      (redirect-to "/login" see-other)
+      #f)
+  (render/page request
+               (lambda ()
+                 `(div "Edit post"))))

@@ -10,7 +10,8 @@
          "render.rkt"
          "utils.rkt")
 
-(provide login-path
+(provide authenticated?
+         login-path
          dashboard-path)
 
 ;; Authenticated user and password.
