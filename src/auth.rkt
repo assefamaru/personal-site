@@ -11,8 +11,7 @@
          "utils.rkt")
 
 (provide authenticated?
-         login-path
-         dashboard-path)
+         login-path)
 
 ;; Authenticated user and password.
 (define admin-user (call/getenv "admin_user"))
@@ -66,13 +65,3 @@
                                  ,@(formlet-display new-login-formlet)
                                  (input ((type "submit")
                                          (class "submit")))))))))
-
-;; Handler for the "/dashboard" path.
-(define (dashboard-path request)
-  (if (not (authenticated? request))
-      (redirect-to "/login" see-other)
-      (render/page request
-                   #:title "Dashboard"
-                   (λ ()
-                     `(div ((class "dashboard"))
-                           "Private dashboard")))))

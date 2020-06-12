@@ -4,6 +4,7 @@
          racket/string)
 
 (provide db-create!
+         db-migrate!
          db-drop!
          db-destroy!
          db-insert-post!
@@ -80,6 +81,12 @@
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         UNIQUE INDEX unique_email (email)
       );")))
+
+;; db-migrate! : db-conn -> void
+;; Migrate any additional changes to database schema.
+;; Add query statements in method body.
+(define (db-migrate! db)
+  void)
 
 ;; db-drop! : db-conn string? -> void
 ;; Drops a single 'table' if present in database.

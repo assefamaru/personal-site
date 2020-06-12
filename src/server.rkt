@@ -5,6 +5,7 @@
          "home.rkt"
          "blog.rkt"
          "auth.rkt"
+         "private.rkt"
          "status.rkt")
 
 ;; start : request? -> response?
@@ -27,7 +28,14 @@
    [("login")
     #:method (or "get" "post")
     login-path]
-   [("dashboard") dashboard-path]
+   [("dashboard") private-dispatch]
+   [("dashboard" (string-arg)) private-dispatch]
+   [("dashboard" (string-arg)
+                 (integer-arg))
+    private-dispatch]
+   [("dashboard" (string-arg)
+                 (string-arg))
+    private-dispatch]
    [else error/404]))
 
 ;; Retrieve PORT environment variable.
