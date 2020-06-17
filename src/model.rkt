@@ -26,7 +26,8 @@
          db-select-partial-posts
          db-select-category-posts
          db-select-post
-         db-select-draft)
+         db-select-draft
+         db-exists-category?)
 
 ;; db-create! : db-conn -> void
 ;; Creates database with latest schema.
@@ -68,7 +69,7 @@
         category   VARCHAR(255)         NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        UNIQUE INDEX unique_category (category)
+        INDEX (category)
       );"))
   (unless (table-exists? db "subscriptions")
     (query-exec
@@ -79,7 +80,7 @@
         active     TINYINT(1) DEFAULT 1 NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        UNIQUE INDEX unique_email (email)
+        INDEX (email)
       );")))
 
 ;; db-migrate! : db-conn -> void
@@ -108,6 +109,9 @@
 (define (db-insert-post! db title category topics body [draft 1])
   (define url-title (string-join (string-split (string-downcase title)) "-"))
   (define description (substring body 0 255))
+  (if (not (db-exists-category? db category))
+      (db-insert-category! db category)
+      void)
   (query-exec
    db
    "INSERT INTO posts
@@ -281,8 +285,8 @@
 (define (db-select-category-posts db category)
   (query-rows
    db
-   "SELECT id,title,url_title,topics,description,created_at
-    FROM posts WHERE category = ? AND draft = 0 ORDER BY updated_at DESC;"
+   "SELECT id,title,url_title,category,topics,description,created_at
+    FROM posts WHERE category = '?' AND draft = 0 ORDER BY updated_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
@@ -300,3 +304,14 @@
    db
    "SELECT * FROM posts WHERE id = ?;"
    id))
+
+;; Check Records =================================
+
+;; db-exists-category? : db-conn string? -> boolean?
+;; Returns true if category exists, and false otherwise.
+(define (db-exists-category? db category)
+  (define exists? (query-maybe-row
+                   db
+                   "SELECT id FROM categories WHERE category = ?;"
+                   category))
+  (if (not exists?) #f #t))

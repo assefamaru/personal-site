@@ -119,7 +119,7 @@
                (vector-ref post 4)
                (vector-ref post 5)
                (vector-ref post 6)
-               (parse/timestamp (vector-ref post 7))))
+               (parse/timestamp (vector-ref post 8))))
      (define (insert-comment-handler request)
        (define-values (first-name last-name email content)
          (formlet-process new-comment-formlet request))

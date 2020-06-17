@@ -2,9 +2,19 @@
 
 (require "render.rkt")
 
-(provide error/404)
+(provide success/200
+         error/404)
 
-;; Page not found (404) error response.
+;; Success (200) status response.
+(define (success/200 request
+                     #:title [title "Success!"]
+                     #:message [message "Success!"])
+  (render/page request
+               #:code 200
+               #:title title
+               (λ () `(div ,message))))
+
+;; Error (404) status response.
 (define (error/404 request
                    #:title [title "Page not found"]
                    #:message [message "Page not found"])

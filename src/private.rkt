@@ -1,6 +1,9 @@
 #lang racket/base
 
 (require web-server/http/redirect
+         web-server/formlets
+         web-server/http/request-structs
+         net/url
          "auth.rkt"
          "db.rkt"
          "render.rkt"
@@ -32,7 +35,7 @@
     [(and (= len 2)
           (equal? (car args) "db")
           (equal? (cadr args) "drop"))
-     (drop-db request)]
+     (destroy-db request)]
     [(and (= len 2)
           (equal? (car args) "posts")
           (equal? (cadr args) "create"))
@@ -63,29 +66,86 @@
                            (li (a ((href "/dashboard/db/drop"))
                                   "Drop DB")))))))
 
-;; create-db : request? -> ...
+;; create-db : request? -> response
 (define (create-db request)
-  (render/page request
-               (lambda ()
-                 `(div "Create DB"))))
+  (db-create! db-conn)
+  (success/200 request
+               #:message "Yayy! Database has been successfully created."))
 
-;; migrate-db : request? -> ...
+;; migrate-db : request? -> response
 (define (migrate-db request)
-  (render/page request
-               (lambda ()
-                 `(div "Migrate DB"))))
+  (db-migrate! db-conn)
+  (success/200 request
+               #:message "Yayy! Database has been successfully migrated."))
 
-;; drop-db : request? -> ...
-(define (drop-db request)
-  (render/page request
-               (lambda ()
-                 `(div "Drop DB"))))
+;; destroy-db : request? -> response
+(define (destroy-db request)
+  (db-destroy! db-conn)
+  (success/200 request
+               #:message "Yayy! Database has been successfully destroyed."))
+
+;; New post formlet.
+(define new-post-formlet
+  (formlet
+   (#%# ,((to-string
+           (required
+            (textarea-input
+             #:rows 1
+             #:attributes '((placeholder "Title")
+                            (autocomplete "off")
+                            (required "")))))
+          . => . title)
+        ,((to-string
+           (required
+            (textarea-input
+             #:rows 1
+             #:attributes '((placeholder "Category")
+                            (autocomplete "off")
+                            (required "")))))
+          . => . category)
+        ,((to-string
+           (required
+            (textarea-input
+             #:rows 1
+             #:attributes '((placeholder "Topics")
+                            (autocomplete "off")))))
+          . => . topics)
+        ,((to-string
+           (required
+            (textarea-input
+             #:rows 1
+             #:attributes '((placeholder "Draft")
+                            (autocomplete "off")))))
+          . => . draft)
+        ,((to-string
+           (required
+            (textarea-input
+             #:rows 30
+             #:attributes '((placeholder "Body")
+                            (autocomplete "off")
+                            (required "")))))
+          . => . body))
+   (values title category topics draft body)))
 
 ;; create-post : request -> ...
 (define (create-post request)
+  (define (insert-post-handler request)
+    (define-values (title category topics draft body)
+      (formlet-process new-post-formlet request))
+    (db-insert-post! db-conn title category topics body
+                     (if (equal? draft "yes") 1 0))
+    (redirect-to (string-append "/blog" category) see-other))
+  (if (bytes=? (request-method request) #"POST")
+      (insert-post-handler request)
+      void)
   (render/page request
-               (lambda ()
-                 `(div "Create Post"))))
+               (λ ()
+                 `(section
+                   ((class "private-form"))
+                   (form ((action ,(url->string (request-uri request)))
+                          (method "post"))
+                         ,@(formlet-display new-post-formlet)
+                         (input ((type "submit"))))))))
 
 ;; Handler for the "/dashboard/drafts/{id}" path.
 (define (edit-draft request post-id)

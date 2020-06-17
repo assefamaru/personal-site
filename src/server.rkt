@@ -35,6 +35,7 @@
     private-dispatch]
    [("dashboard" (string-arg)
                  (string-arg))
+    #:method (or "get" "post")
     private-dispatch]
    [else error/404]))
 
@@ -59,6 +60,6 @@
                ; Customize base URL
                #:servlet-path "/"
                ; Run servlet as a stateless module
-               #:stateless? #f
+               #:stateless? #t
                ; Capture all top level requests
                #:servlet-regexp #rx"")

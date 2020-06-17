@@ -117,7 +117,28 @@
                                                                         [span #:margin 0
                                                                               #:display block
                                                                               #:margin-left 50px]
-                                                                        [p #:margin-left 50px]]]]]
+                                                                        [p #:margin-left 50px]]]]
+                      [.private-form #:position relative
+                                     #:width 100%
+                                     #:max-width 650px
+                                     #:left |calc(30% - 20px)|
+                                     #:margin-top 50px
+                                     [form #:width 100%
+                                           [textarea #:display block
+                                                     #:border none
+                                                     #:outline none
+                                                     #:width 100%
+                                                     #:resize vertical
+                                                     #:margin-bottom 10px
+                                                     #:padding |3px 10px|
+                                                     #:background-color transparent
+                                                     #:font-family "Source Sans Pro"
+                                                     #:font-size 16px]
+                                           [input #:background-color transparent
+                                                  #:font-family "Source Sans Pro"
+                                                  #:font-size 16px]]]
+
+                      ]
     [.spacer-y #:height 50px]
     [footer #:position absolute
             #:left 76%
@@ -135,7 +156,8 @@
                     #:margin-top 10vh]
              [.login #:left 0]
              [.posts-wrapper #:left 0]
-             [.blog-post #:left 0]]
+             [.blog-post #:left 0]
+             [.private-form #:left 0]]
             [footer #:left 50px]])))
 
 ;; Dark theme styles.
@@ -167,6 +189,15 @@
      [h1 #:color |#FFFFFF|]]
     [.post-topic #:color |#E91E63|
                  #:border |1px solid #E91E63|]
+    [.private-form
+     [form
+      [textarea #:color |#BAC2C9|
+                #:border-left |2px solid #64FFDA !important|]
+      [::placeholder #:color |#BAC2C9|
+                     #:filter |brightness(80%)|]
+      [input #:background-color transparent
+             #:color |#64FFDA|
+             #:border |1px solid #64FFDA|]]]
     [.comments-section
      [form
       [textarea #:color |#BAC2C9|
