@@ -2,7 +2,8 @@
 
 (require web-server/http/xexpr
          racket/string
-         "styles.rkt")
+         "styles.rkt"
+         "auth.rkt")
 
 (provide render/page)
 
@@ -115,9 +116,11 @@
                 (a ((href "/login"))
                    (i ((class "fa fa-lock")
                        (area-hidden "true"))))
-                (a ((href "/dashboard"))
-                   (i ((class "fa fa-grav")
-                       (area-hidden "true"))))))
+                ,(if (authenticated? request)
+                   `(a ((href "/dashboard"))
+                       (i ((class "fa fa-grav")
+                           (area-hidden "true"))))
+                   `(span))))
       (div ((class "content-wrapper"))
            ,@(map
               (lambda (x)

@@ -107,7 +107,7 @@
 ;; Consumes a db-conn and a post, and adds the post to the database.
 (define (db-insert-post! db title category topics body [draft 1])
   (define url-title (string-join (string-split (string-downcase title)) "-"))
-  (define description (substring body 0 255))
+  (define description (substring body 0 (min 255 (string-length body))))
   (unless (db-exists-category? db category)
     (db-insert-category! db category))
   (query-exec
