@@ -137,8 +137,19 @@
                                            [input #:background-color transparent
                                                   #:font-family "Source Sans Pro"
                                                   #:font-size 16px]]]
-
-                      ]
+                      [.dashboard #:position relative
+                                  #:with 100%
+                                  #:max-width 650px
+                                  #:left |calc(30% - 20px)|
+                                  #:margin-top 50px
+                                  [ul #:margin 0
+                                      #:padding 0
+                                      [li #:display block
+                                          #:padding 0
+                                          #:margin 0
+                                          [a #:display block
+                                             #:text-decoration none
+                                             #:margin-bottom 10px]]]]]
     [.spacer-y #:height 50px]
     [footer #:position absolute
             #:left 76%
@@ -157,7 +168,8 @@
              [.login #:left 0]
              [.posts-wrapper #:left 0]
              [.blog-post #:left 0]
-             [.private-form #:left 0]]
+             [.private-form #:left 0]
+             [.dashboard #:left 0]]
             [footer #:left 50px]])))
 
 ;; Dark theme styles.

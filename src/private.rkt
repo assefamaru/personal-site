@@ -179,18 +179,17 @@
       (formlet-process new-post-formlet request))
     (db-insert-post! db-conn title category topics body
                      (if (equal? (string-downcase draft) "yes") 1 0))
-    (redirect-to (string-append "/blog" category) see-other))
+    (redirect-to "/blog" see-other))
   (if (bytes=? (request-method request) #"POST")
       (insert-post-handler request)
-      void)
-  (render/page request
-               (λ ()
-                 `(section
-                   ((class "private-form"))
-                   (form ((action ,(url->string (request-uri request)))
-                          (method "post"))
-                         ,@(formlet-display new-post-formlet)
-                         (input ((type "submit"))))))))
+      (render/page request
+                   (λ ()
+                     `(section
+                       ((class "private-form"))
+                       (form ((action ,(url->string (request-uri request)))
+                              (method "post"))
+                             ,@(formlet-display new-post-formlet)
+                             (input ((type "submit")))))))))
 
 ;; Handler for the "/dashboard/drafts/{id}" path.
 (define (edit-draft request post-id)
