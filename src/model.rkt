@@ -23,7 +23,6 @@
          db-select-comments
          db-select-categories
          db-select-subscriptions
-         db-select-partial-posts
          db-select-category-posts
          db-select-post
          db-select-draft
@@ -254,30 +253,6 @@
     [active (query-list db "SELECT email FROM subscriptions WHERE active = 1;")]
     [(not active) (query-list db "SELECT email FROM subscriptions WHERE active = 0;")]
     [else (query-list db "SELECT email FROM  subscriptions;")]))
-
-;; db-select-partial-posts : db-conn -> (listof vector?)
-;; Selects the 5 most recent posts under each category.
-(define (db-select-partial-posts db [draft 0])
-  (define categories (db-select-categories db))
-  (define (stmt categories)
-    (cond
-      [(null? categories)
-       "SELECT id,title,url_title,category,topics,description,created_at
-        FROM posts WHERE draft = 0 ORDER BY updated_at DESC LIMIT 10;"]
-      [(null? (cdr categories))
-       (string-append "(SELECT id,title,url_title,category,topics,description,created_at
-                       FROM posts WHERE category = '"
-                      (car categories)
-                      "' ORDER BY updated_at DESC LIMIT 5);")]
-      [else
-       (string-append "(SELECT id,title,url_title,category,topics,description,created_at
-                       FROM posts WHERE category = '"
-                      (car categories)
-                      "' ORDER BY updated_at DESC LIMIT 5) UNION ALL "
-                      (stmt (cdr categories)))]))
-  (query-rows
-   db
-   (stmt categories)))
 
 ;; db-select-category-posts : db-conn string? -> (listof vector?)
 ;; Selects all posts in database under a particular category.
