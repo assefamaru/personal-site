@@ -8,7 +8,7 @@
          "db.rkt"
          "render.rkt"
          "model.rkt"
-         "status.rkt")
+         "errors.rkt")
 
 (provide private-dispatch)
 

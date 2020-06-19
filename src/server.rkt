@@ -6,7 +6,7 @@
          "blog.rkt"
          "auth.rkt"
          "private.rkt"
-         "status.rkt")
+         "errors.rkt")
 
 ;; start : request? -> response?
 ;; Consumes a request and produces a page

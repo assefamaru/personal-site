@@ -187,8 +187,8 @@
                  [h1 #:color |#FFFFFF|]]]
     [.blog-post
      [h1 #:color |#FFFFFF|]]
-    [.post-topic #:color |#E91E63|
-                 #:border |1px solid #E91E63|]
+    [.post-topic #:color |#64FFDA|
+                 #:border |1px solid #64FFDA|]
     [.private-form
      [form
       [textarea #:color |#BAC2C9|

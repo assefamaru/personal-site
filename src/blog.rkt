@@ -9,7 +9,7 @@
          "db.rkt"
          "model.rkt"
          "render.rkt"
-         "status.rkt"
+         "errors.rkt"
          "utils.rkt")
 
 (provide blog-path
@@ -18,7 +18,7 @@
 
 ;; Handler for the "/blog" path.
 (define (blog-path request)
-  (define posts (db-select-partial-posts db-conn))
+  (define posts (db-select-posts db-conn))
   (if (null? posts)
       (error/404 request
                  #:title "404 (Not Found)"

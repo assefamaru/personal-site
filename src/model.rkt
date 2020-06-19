@@ -109,9 +109,8 @@
 (define (db-insert-post! db title category topics body [draft 1])
   (define url-title (string-join (string-split (string-downcase title)) "-"))
   (define description (substring body 0 255))
-  (if (not (db-exists-category? db category))
-      (db-insert-category! db category)
-      void)
+  (unless (db-exists-category? db category)
+    (db-insert-category! db category))
   (query-exec
    db
    "INSERT INTO posts
@@ -217,7 +216,7 @@
 (define (db-select-posts db)
   (query-rows
    db
-   "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+   "SELECT id,title,url_title,category,topics,description,created_at
     FROM posts WHERE draft = 0 ORDER BY updated_at DESC;"))
 
 ;; db-select-drafts : db-conn -> (listof vector?)
@@ -225,7 +224,7 @@
 (define (db-select-drafts db)
   (query-rows
    db
-   "SELECT id,title,url_title,category,topics,description,created_at,updated_at
+   "SELECT id,title,url_title,category,topics,description,created_at
     FROM posts WHERE draft = 1 ORDER BY updated_at DESC;"))
 
 ;; db-select-comments : db-conn integer? -> (listof vector?)
@@ -266,15 +265,15 @@
        "SELECT id,title,url_title,category,topics,description,created_at
         FROM posts WHERE draft = 0 ORDER BY updated_at DESC LIMIT 10;"]
       [(null? (cdr categories))
-       (string-append "SELECT id,title,url_title,category,topics,description,created_at
-                       FROM posts WHERE category = "
+       (string-append "(SELECT id,title,url_title,category,topics,description,created_at
+                       FROM posts WHERE category = '"
                       (car categories)
-                      " AND draft = 0 ORDER BY updated_at DESC LIMIT 5;")]
+                      "' ORDER BY updated_at DESC LIMIT 5);")]
       [else
-       (string-append "SELECT id,title,url_title,category,topics,description,created_at
-                       FROM posts WHERE category = "
+       (string-append "(SELECT id,title,url_title,category,topics,description,created_at
+                       FROM posts WHERE category = '"
                       (car categories)
-                      " AND draft = 0 ORDER BY updated_at DESC LIMIT 5 UNION "
+                      "' ORDER BY updated_at DESC LIMIT 5) UNION ALL "
                       (stmt (cdr categories)))]))
   (query-rows
    db
@@ -286,7 +285,7 @@
   (query-rows
    db
    "SELECT id,title,url_title,category,topics,description,created_at
-    FROM posts WHERE category = '?' AND draft = 0 ORDER BY updated_at DESC;"
+    FROM posts WHERE draft = 0 AND category = ? ORDER BY updated_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
