@@ -14,7 +14,8 @@
 
 (provide blog-path
          list-posts
-         review-post)
+         review-post
+         blog-posts)
 
 ;; Handler for the "/blog" path.
 (define (blog-path request)

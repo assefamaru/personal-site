@@ -8,6 +8,7 @@
          "db.rkt"
          "render.rkt"
          "model.rkt"
+         "blog.rkt"
          "errors.rkt")
 
 (provide login-path
@@ -177,7 +178,7 @@
     (define-values (title category topics draft body)
       (formlet-process new-post-formlet request))
     (db-insert-post! db-conn title category topics body
-                     (if (equal? draft "yes") 1 0))
+                     (if (equal? (string-downcase draft) "yes") 1 0))
     (redirect-to (string-append "/blog" category) see-other))
   (if (bytes=? (request-method request) #"POST")
       (insert-post-handler request)
@@ -200,6 +201,11 @@
 ;; Handler for the "/dashboard/drafts" path.
 (define (list-drafts request)
   (define drafts (db-select-drafts db-conn))
-  (render/page request
-               (lambda ()
-                 `(div "List drafts"))))
+  (if (null? drafts)
+      (error/404 request
+                 #:title "404 (Not Found)"
+                 #:message "No drafts found in database.")
+      (render/page request
+                   #:title "Blog Drafts"
+                   #:params drafts
+                   blog-posts)))
