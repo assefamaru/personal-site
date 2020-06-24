@@ -41,6 +41,7 @@
    [("dashboard" (string-arg)
                  (integer-arg)
                  (string-arg))
+    #:method (or "get" "post")
     private-dispatch]
    [else error/404]))
 

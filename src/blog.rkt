@@ -154,7 +154,12 @@
                                  (a ((class "edit-btn")
                                      (href ,(string-append "/dashboard/drafts/"
                                                            (number->string post-id))))
-                                    "Edit Post"))
+                                    "Edit Post")
+                                 (a ((class "delete-btn")
+                                     (href ,(string-append "/dashboard/drafts/"
+                                                           (number->string post-id)
+                                                           "/destroy")))
+                                    "Delete Post"))
                                `(span))
                           (section
                            ((class "comments-section"))

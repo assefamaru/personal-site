@@ -94,6 +94,11 @@
           (number? (cadr args))
           (equal? (caddr args) "view"))
      (review-draft request (cadr args))]
+    [(and (= len 3)
+          (equal? (car args) "drafts")
+          (number? (cadr args))
+          (equal? (caddr args) "destroy"))
+     (delete-draft request (cadr args))]
     [else
      (error/404 request)]))
 
@@ -367,4 +372,14 @@
                           (div
                            (a ((class "edit-btn")
                                (href ,(string-append "/dashboard/drafts/" id)))
-                              "Edit Draft")))))]))
+                              "Edit Draft")
+                           (a ((class "delete-btn")
+                               (href ,(string-append "/dashboard/drafts/" id "/destroy")))
+                              "Delete Draft")))))]))
+
+;; Handler for the "/dashboard/drafts/{id}/destroy" path.
+(define (delete-draft request post-id)
+  (db-delete-post! db-conn post-id)
+  (success/200 request
+               #:title "Post Deleted"
+               #:message "Success! Your post has successfully been deleted from database."))
