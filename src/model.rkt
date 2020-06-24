@@ -115,7 +115,7 @@
    "INSERT INTO posts
     (title,url_title,category,topics,description,body,draft)
     VALUES(?,?,?,?,?,?,?);"
-   title url-title category topics description body draft))
+   (string-titlecase title) url-title category topics description body draft))
 
 ;; db-insert-comment! : db-conn integer? string? string? string? string? -> void
 ;; Consumes a db-conn and a comment, and adds the comment to the database.
@@ -150,13 +150,13 @@
 ;; Updates the different sections of a post after an edit is made.
 (define (db-update-post! db id title category topics body [draft 1])
   (define url-title (string-join (string-split (string-downcase title)) "-"))
-  (define description (substring body 0 255))
+  (define description (substring body 0 (min 255 (string-length body))))
   (query-exec
    db
    "UPDATE posts SET
     title = ?, url_title = ?, category = ?, topics = ?,
     description = ?, body = ?, draft = ? WHERE id = ?;"
-   title url-title category topics description body draft id))
+   (string-titlecase title) url-title category topics description body draft id))
 
 ;; db-update-category! : db-conn integer? string? -> void
 ;; Updates a category field for the blog.
@@ -216,7 +216,7 @@
   (query-rows
    db
    "SELECT id,title,url_title,category,topics,description,created_at
-    FROM posts WHERE draft = 0 ORDER BY updated_at DESC;"))
+    FROM posts WHERE draft = 0 ORDER BY created_at DESC;"))
 
 ;; db-select-drafts : db-conn -> (listof vector?)
 ;; Selects all the drafts currently in database.
@@ -260,7 +260,7 @@
   (query-rows
    db
    "SELECT id,title,url_title,category,topics,description,created_at
-    FROM posts WHERE draft = 0 AND category = ? ORDER BY updated_at DESC;"
+    FROM posts WHERE draft = 0 AND category = ? ORDER BY created_at DESC;"
    category))
 
 ;; db-select-post : db-conn integer? string? string? -> vector?
@@ -268,7 +268,7 @@
 (define (db-select-post db id url-title category)
   (query-maybe-row
    db
-   "SELECT * FROM posts WHERE id = ? AND url_title = ? AND category = ?;"
+   "SELECT * FROM posts WHERE id = ? AND url_title = ? AND category = ? AND draft = 0;"
    id url-title category))
 
 ;; db-select-post : db-conn integer? -> vector?
@@ -276,7 +276,8 @@
 (define (db-select-draft db id)
   (query-maybe-row
    db
-   "SELECT * FROM posts WHERE id = ?;"
+   "SELECT id, title, category, topics, description, draft, body, created_at
+    FROM posts WHERE id = ?;"
    id))
 
 ;; Check Records =================================

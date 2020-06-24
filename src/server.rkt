@@ -32,10 +32,15 @@
    [("dashboard" (string-arg)) private-dispatch]
    [("dashboard" (string-arg)
                  (integer-arg))
+    #:method (or "get" "post")
     private-dispatch]
    [("dashboard" (string-arg)
                  (string-arg))
     #:method (or "get" "post")
+    private-dispatch]
+   [("dashboard" (string-arg)
+                 (integer-arg)
+                 (string-arg))
     private-dispatch]
    [else error/404]))
 
@@ -51,7 +56,7 @@
                ; Use serve/servlet in a startup script
                ; - #f in development
                ; - #t in production
-               #:command-line? #f
+               #:command-line? #t
                ; Accept connections to all listening
                ; machines' addresses by setting to #f
                #:listen-ip #f

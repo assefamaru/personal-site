@@ -13,7 +13,7 @@
 (define admin-pass (call/getenv "admin_pass"))
 
 ;; Temporary auth function.
-(define (authenticated? request) #t)
+(define (authenticated? request) #f)
 
 ;; authenticated? : request? -> boolean?
 (define (new-authenticated? request)

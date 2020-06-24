@@ -210,6 +210,12 @@
       [input #:background-color transparent
              #:color |#64FFDA|
              #:border |1px solid #64FFDA|]]]
+    [.edit-btn #:background-color transparent
+               #:text-decoration none
+               #:padding 3px
+               #:border-radius 1px
+               #:color |#E91E63|
+               #:border |1px solid #E91E63|]
     [.comments-section
      [form
       [textarea #:color |#BAC2C9|

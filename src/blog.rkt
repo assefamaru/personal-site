@@ -14,8 +14,7 @@
 
 (provide blog-path
          list-posts
-         review-post
-         blog-posts)
+         review-post)
 
 ;; Handler for the "/blog" path.
 (define (blog-path request)
@@ -109,11 +108,11 @@
 (define (review-post request category id url-title)
   (define post (db-select-post db-conn id url-title category))
   (cond
-    ((not post)
+    [(not post)
      (error/404 request
                 #:title "404 (Not Found)"
-                #:message "Post not found. Go back to home page."))
-    (else
+                #:message "Post not found. Go back to home page.")]
+    [else
      (define-values (post-id title topics description body created-at)
        (values (vector-ref post 0)
                (vector-ref post 1)
@@ -150,6 +149,13 @@
                           ,@(map (λ (x)
                                    `(p ((class "blog-body-p")) ,x))
                                  (string-split body "\n"))
+                          ,(if (authenticated? request)
+                               `(div
+                                 (a ((class "edit-btn")
+                                     (href ,(string-append "/dashboard/drafts/"
+                                                           (number->string post-id))))
+                                    "Edit Post"))
+                               `(span))
                           (section
                            ((class "comments-section"))
                            (h4 ((class "comments-count"))
@@ -175,4 +181,4 @@
                                                ,@(map (λ (x)
                                                         `(p ((class "comment-p")) ,x))
                                                       (string-split content "\n"))))
-                                       comments)))))))))
+                                       comments))))))]))
